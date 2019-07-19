@@ -1,23 +1,47 @@
 <div class="main-analysis">
   <div class="analysis-card">
-    <p>In the world of Pokemon, a check is a Pokemon who can destroy the opposing Pokemon easily. All Pokemon have checks; it's just about figuring out which ones mesh well together on a team.</p>
-    <p>In the following dropdown menu you have the option to pick one Pokemon. When you click "Submit", you will be brought to a page that shows you which Pokemon that the Pokemon you selected is a check for.</p>
-    <p style="margin-bottom: 30px;">When creating a team, you want to include Pokemon who have a wide variety of Pokemon and Types that they can provide checks for. For instance, a Pokemon that has great type coverage, like Starmie, can be a potential check for many different Pokemon.</p>
+    <h3 style="text-align: center;">What is a Counter?</h3>
+    <p>In order to have a powerful Pokemon team, you'll need a variety of Pokemon that as a whole can take on most types, stats, and abilities.</p>
+    <p>A counter is a Pokemon that has a type or stat advantage over the opposing Pokemon. This allows the Counter the opportunity to setup hazards, boost their stats, heal their teammates, or faint the opposing Pokemon.</p>
     <div class="first_expl">
-      <img style="display: block; float: left; height: 50px; width: 70px; margin-top: 10px;" src="/img/starmie.png">
+      <img style="display: block; margin: 0 auto; height: 50px; width: 70px; margin-top: 10px;" src="/img/gengar.png">
         <div class="explanation">
-          <ul style="list-style-type: none;">
-            <li>Ice Beam <img class="explanation-img" src="/img/ice.png"></li>
-            <li>Psychic <img class="explanation-img" src="/img/psychic.png"></li>
-            <li>Thunderbolt <img class="explanation-img" src="/img/electric.png"></li>
-            <li> Hydro Pump <img class="explanation-img" src="/img/water.png"></li>
-          </ul>
+          <img class="explanation-img" style="margin-right: 90px; margin-top: 10px;" src="/img/ghost.png"></li>
+          <img class="explanation-img" style="margin-top: 10px;" src="/img/poison.png"></li>
         </div>
       </div>
-      <p style="text-align: center;">Starmie has <strong>huge</strong> type coverage.</p>
+      <p style="text-align: center;">Gengar has <strong>amazing</strong> immunities.</p>
+      <p>Thanks to his ability <em>Levitate</em>, Gengar is also immune to Ground, in addition to Normal and Fighting moves. Furthermore, he soaks up Toxic Spikes and can switch into a Toxic user without being harmed.</p>
+  </div>
+<div class="analysis-card">
+    <h3>Counter Submission</h3>
+    <p>There is always room for improvement, especially when it comes to compiling a database of checks and counters. If you have a Pokemon you'd like to submit as a counter to another Pokemon, do so here.</p>
+    <p>The first box is the Pokemon that will be countered against.</p>
+    <p>The second box is the Pokemon you would like to add to the counters of the first Pokemon.</p>
+    <form action="/submit_counter" method="post">
+      Pokemon: 
+      <select name="first_pkmn">
+
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <br>
+      Counter:
+      <select style="margin-left: 9px;" name="second_pkmn">
+        <% @pkmn_list.each do |pkmn| %>
+          Counter: <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <br>
+      <textarea style="resize: none;" name="explain" rows="5" cols="35" maxlength="200" required="required">Explain why in this area. 200 characters max.</textarea>
+      <br>
+      <input type="submit" value="Submit">
+    </form>
   </div>
   <div class="analysis-card">
     <form action="/counter_analysis" method="post">
+      <strong>Find Counters:</strong>
       <select name="pkmn">
         <% @pkmn_list.each do |pkmn| %>
           <option><%= pkmn %></option>

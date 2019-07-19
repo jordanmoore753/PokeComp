@@ -58,10 +58,17 @@ class AppTest < Minitest::Test
     assert_equal session[:curr_poke_check], "Venusaur"
 
     get last_response["Location"]
-    assert_includes last_response.body, "Charizard"
+    assert_includes last_response.body, "Blastoise"
   end
 
   def test_counter
+    get "/counter_analysis"
+    assert_includes last_response.body, "<form"
 
+    post "/counter_analysis", params = { pkmn: "Venusaur" }
+    assert_equal session[:curr_poke_check], "Venusaur"
+
+    get last_response["Location"]
+    assert_includes last_response.body, "Charizard"
   end
 end

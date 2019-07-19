@@ -43,3 +43,16 @@ inline styles for it.
 - new option tag for each element.
 - Then, in the profile, have one of the boxes have three teams possible. From left to right (1-6) show
 the pokemon just by icon.
+5. Allow users to submit more mons for checks/counters.
+- Third grid item on check and counter pages.
+- Height should take up whatever isn't taken up by the 2nd container in comparison to the first large one.
+- Update counter page to have the correct paragraphs and picture explanation.
+- Separate form that takes user to the post/submit_check or submit_counter, which then redirects to forum/profile.
+- Uploads as a forum post instead of a separate file.
+- Use password generator as unique key and then have the instance variables of the object assigned to it as array
+elements.
+- Title of post is the two pokemon and the relationship. Paragraphs is the textarea. Date is assigned. User is from session.
+- Iterate through forum posts by index so the key is irrelevant.
+6. Create forum for regular posts.
+- Post object already created.
+- Create a grid layout. One column 

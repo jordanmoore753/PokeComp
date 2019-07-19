@@ -6,6 +6,7 @@ require "tilt/erubis"
 require "rack"
 require "yaml"
 require "bcrypt"
+require "time"
 require_relative "posts"
 
 configure do
@@ -139,6 +140,22 @@ def write_to_teams(data_path_yml)
   end
 end
 
+def write_to_posts(data_path_yml, post_object)
+  File.open(data_path_yml, 'a') do |yml|
+    yml.puts ":#{BCrypt::Password.create("key")}:"
+    yml.puts "- #{post_object.title}"
+    yml.puts "- #{post_object.date}"
+    yml.puts "- #{post_object.paragraphs}"
+    yml.puts "- #{post_object.user}"
+  end 
+end
+
+def no_scripts?(para)
+  invalid = ["<script>", "</script>", "<script"]
+  invalid.each { |word| return false if para.include?(word) }
+  true
+end
+
 def data_path #refactor this for testing also
   File.expand_path("../data", __FILE__)
 end
@@ -236,3 +253,42 @@ post "/counter_analysis" do
   session[:curr_poke_check] = params[:pkmn]
   redirect "/#{params[:pkmn]}/results_counter"
 end
+
+post "/submit_check" do 
+  #first_pkmn, second_pkmn, explain
+  if no_scripts?(params[:explain])
+    title = "#{params[:second_pkmn]} is checked by #{params[:first_pkmn]}."
+    paragraphs = params[:explain].split("\n")
+    time = Time.new
+    user = session[:curr_user]
+    new_post = Post.new(title, "#{time.month}/#{time.day}/#{time.year}",
+                        paragraphs, user)
+    path = yaml_path("posts")
+    write_to_posts(path, new_post)
+    session[:success] = "Submission successfully created."
+    redirect "/"
+  else
+    session[:error] = "No HTML allowed."
+    erb :check_analysis
+  end
+end
+
+post "/submit_counter" do 
+  #first_pkmn, second_pkmn, explain
+  if no_scripts?(params[:explain])
+    title = "#{params[:second_pkmn]} is counter to #{params[:first_pkmn]}."
+    paragraphs = params[:explain].split("\n")
+    time = Time.new
+    user = session[:curr_user]
+    new_post = Post.new(title, "#{time.month}/#{time.day}/#{time.year}",
+                        paragraphs, user)
+    path = yaml_path("posts")
+    write_to_posts(path, new_post)
+    session[:success] = "Submission successfully created."
+    redirect "/"
+  else
+    session[:error] = "No HTML allowed."
+    erb :counter_analysis
+  end
+end
+
