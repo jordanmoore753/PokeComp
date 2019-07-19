@@ -1,0 +1,29 @@
+<div class="main-analysis">
+  <div class="analysis-card">
+    <p>In the world of Pokemon, a check is a Pokemon who can destroy the opposing Pokemon easily. All Pokemon have checks; it's just about figuring out which ones mesh well together on a team.</p>
+    <p>In the following dropdown menu you have the option to pick one Pokemon. When you click "Submit", you will be brought to a page that shows you which Pokemon that the Pokemon you selected is a check for.</p>
+    <p style="margin-bottom: 30px;">When creating a team, you want to include Pokemon who have a wide variety of Pokemon and Types that they can provide checks for. For instance, a Pokemon that has great type coverage, like Starmie, can be a potential check for many different Pokemon.</p>
+    <div class="first_expl">
+      <img style="display: block; float: left; height: 50px; width: 70px; margin-top: 10px;" src="/img/starmie.png">
+        <div class="explanation">
+          <ul style="list-style-type: none;">
+            <li>Ice Beam <img class="explanation-img" src="/img/ice.png"></li>
+            <li>Psychic <img class="explanation-img" src="/img/psychic.png"></li>
+            <li>Thunderbolt <img class="explanation-img" src="/img/electric.png"></li>
+            <li> Hydro Pump <img class="explanation-img" src="/img/water.png"></li>
+          </ul>
+        </div>
+      </div>
+      <p style="text-align: center;">Starmie has <strong>huge</strong> type coverage.</p>
+  </div>
+  <div class="analysis-card">
+    <form action="/check_analysis" method="post">
+      <select name="pkmn">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <input type="submit" value="Submit">
+    </form>
+  </div>
+</div>

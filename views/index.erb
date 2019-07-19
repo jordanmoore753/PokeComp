@@ -1,8 +1,8 @@
 
 
-<% content_for :current_action do %>
+<% content_for :session_header do %>
   <% if session[:success] %>
-    <h2><%= session.delete(:success)%></h2>
+    <p><%= session.delete(:success)%></p>
   <% end %>
 <% end %>
 

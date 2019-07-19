@@ -1,4 +1,4 @@
-<% content_for :current_action do %>
+<% content_for :session_header do %>
   <% if session[:success] %>
     <h2><%= session.delete(:success)%></h2>
   <% elsif session[:error] %>
@@ -7,6 +7,15 @@
 <% end %>
 <div class="main-cards">
   <div class="card">Card</div>
-  <div class="card">Card</div>
+  <div class="card">
+    <h3>Favorite Team</h3>
+    <div class="team_grid">
+      <% @team.each do |pkmn| %>
+        <div class="pkmn_img">
+          <img style="padding-left: 20px;" src="/img/<%= pkmn %>.png">
+        </div>
+      <% end %>
+    </div>
+  </div>
   <div class="card">Card</div>  
 </div>

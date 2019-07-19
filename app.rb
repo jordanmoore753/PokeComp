@@ -139,7 +139,7 @@ def write_to_teams(data_path_yml)
   end
 end
 
-def data_path
+def data_path #refactor this for testing also
   File.expand_path("../data", __FILE__)
 end
 
@@ -160,7 +160,30 @@ get "/register" do
 end
 
 get "/:user/profile" do 
+  @team = load_yml_list("teams").select { |key| key == params[:user].to_sym }.values.flatten
   erb :profile
+end
+
+get "/check_analysis" do
+  @pkmn_list = load_pkmn_list.map { |pkmn| pkmn[0] }  
+  erb :check_analysis
+end
+
+get "/counter_analysis" do 
+  @pkmn_list = load_pkmn_list.map { |pkmn| pkmn[0] }  
+  erb :counter_analysis
+end
+
+get "/:pkmn/results_check" do 
+  @pkmn_list = load_pkmn_list
+  @check_poke = @pkmn_list[session.delete(:curr_poke_check)]
+  erb :results_check
+end
+
+get "/:pkmn/results_counter" do 
+  @pkmn_list = load_pkmn_list
+  @check_poke = @pkmn_list[session.delete(:curr_poke_check)]
+  erb :results_counter
 end
 
 post "/login" do 
@@ -196,4 +219,20 @@ post "/register" do
     session[:error] = "Try another username or ensure your passwords match."
     erb :register
   end
+end
+
+post "/logout" do 
+  session.delete(:curr_user)
+  session[:success] = "User signed out."
+  redirect "/"
+end
+
+post "/check_analysis" do 
+  session[:curr_poke_check] = params[:pkmn]
+  redirect "/#{params[:pkmn]}/results_check"
+end
+
+post "/counter_analysis" do 
+  session[:curr_poke_check] = params[:pkmn]
+  redirect "/#{params[:pkmn]}/results_counter"
 end
