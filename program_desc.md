@@ -55,4 +55,12 @@ elements.
 - Iterate through forum posts by index so the key is irrelevant.
 6. Create forum for regular posts.
 - Post object already created.
-- Create a grid layout. One column 
+- Create a grid layout. One column.
+- Articles will be created and uploaded from a folder called articles in data directory.
+- Articles must be written in markdown format. All scripts will be escaped.
+- The main content div will display the data.
+- Articles will have a title, date, user, and content (markdown).
+- Store user, date, and title who submitted in the file name at the end:
+  - file_name_admin_07192019 (admin = user, 07192019 = date, title = File Name)
+  - if name already exists, error
+  - if name contains inappropriate symbols, error
