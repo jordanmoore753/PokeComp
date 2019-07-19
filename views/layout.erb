@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" type="text/css" href="/stylesheets/desktop.css">
+  </head>
+  <body>
+    <div class="grid-container">
+      <header class="header">
+        <div class="header_one"><a href="/login">Login</a></div>
+        <div class="header_two"><a href="/register">Register</a></div>
+      </header>
+      <aside class="sidenav">
+        <ul class="sidenav_list">
+          <li class="sidenav_list-item"><a href="/<%= session[:curr_user] %>/profile">Profile</a></li>
+          <li class="sidenav_list-item"><a href="/teambuild">TeamBuilder</a></li>
+          <li class="sidenav_list-item">One</li>
+        </ul>
+      </aside>
+      <main class="main">
+        <div class="main-header"><%= yield_content :current_action %></div>
+        <%= yield %>
+      </main>
+      <footer class="footer">
+        <div class="footer_copyright">&copy; 2019 JM</div>
+        <div class="footer_signature">Made with love by JM</div>
+      </footer>
+    </div>
+  </body>
+</html>

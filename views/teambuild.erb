@@ -1,0 +1,46 @@
+
+<div class="main-cards">
+  <div class="card">
+    <form action="/teambuild" method="post" class="pkmn_selection">
+      <h3>Pokemon 1</h3>
+      <select name="first">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <h3>Pokemon 2</h3>
+      <select name="second">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <h3>Pokemon 3</h3>
+      <select name="third">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <h3>Pokemon 4</h3>
+      <select name="four">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <h3>Pokemon 5</h3>
+      <select name="fifth">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <h3>Pokemon 6</h3>
+      <select name="six">
+        <% @pkmn_list.each do |pkmn| %>
+          <option><%= pkmn %></option>
+        <% end %>
+      </select>
+      <input type="submit" value="Create Team">
+    </form>  
+  </div> 
+  <div class="card">Card</div>
+  <div class="card">Card</div>  
+</div>

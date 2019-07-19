@@ -1,0 +1,15 @@
+
+
+<% content_for :current_action do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% end %>
+<% end %>
+
+<div class="main-overview">
+<% display_pkmn_checks("Venusaur").each do |pkmn| %>
+  <div class="overviewcard"><%= display_pkmn_name_type(pkmn) %></div>
+<% end %>
+</div>
+
+

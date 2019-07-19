@@ -1,0 +1,771 @@
+---
+Venusaur:
+  :type:
+    - Grass
+    - Poison
+  :walls:
+    - Charizard
+    - Weezing
+    - Arbok
+  :attacker:
+    - Blastoise
+    - Seadra
+    - Tentacruel
+Charizard:
+  :type:
+    - Fire
+    - Flying
+  :walls:
+    - Blastoise
+    - Weezing
+    - Golduck
+  :attacker:
+    - Vileplume
+    - Victreebel
+    - Magneton
+Blastoise:
+  :type:
+    - Water
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Snorlax
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Butterfree:
+  :type:
+    - Bug
+    - Flying
+  :walls:
+    - Golem
+    - Rhydon
+    - Magmar
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Mr-Mime
+Beedrill:
+  :type:
+    - Bug
+    - Poison
+  :walls:
+    - Golem
+    - Rhydon
+    - Magmar
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Mr-Mime
+Pidgeot:
+  :type:
+    - Normal
+    - Flying
+  :walls:
+    - Golem
+    - Rhydon
+    - Sandslash
+  :attacker:
+    - Butterfree
+    - Beedrill
+    - Primeape
+Raticate:
+  :type:
+    - Normal
+  :walls:
+    - Golem
+    - Rhydon
+    - Onix
+  :attacker:
+    - Pidgeot
+    - Alakazam
+    - Mr-Mime
+Fearow:
+  :type:
+    - Normal
+    - Flying
+  :walls:
+    - Kabutops
+    - Omastar
+    - Electrode
+  :attacker:
+    - Primeape
+    - Machamp
+    - Butterfree
+Arbok:
+  :type:
+    - Poison
+  :walls:
+    - Golem
+    - Hypno
+    - Marowak
+  :attacker:
+    - Vileplume
+    - Victreebel
+    - Raticate
+Raichu:
+  :type:
+    - Electric
+  :walls:
+    - Golem
+    - Rhydon
+    - Marowak
+  :attacker:
+    - Blastoise
+    - Tentacruel
+    - Vaporeon
+Sandslash:
+  :type:
+    - Ground
+  :walls:
+    - Lapras
+    - Gyarados
+    - Victreebel
+  :attacker:
+    - Raichu
+    - Magneton
+    - Electabuzz
+Nidoqueen:
+  :type:
+    - Poison
+    - Ground
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Weezing
+  :attacker:
+    - Arbok
+    - Magneton
+    - Electrode
+Nidoking:
+  :type:
+    - Poison
+    - Ground
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Weezing
+  :attacker:
+    - Arbok
+    - Magneton
+    - Electrode
+Clefable:
+  :type:
+    - Normal
+  :walls:
+    - Onix
+    - Golem
+    - Rhydon
+  :attacker:
+    - Persian
+    - Raticate
+    - Dodrio
+Ninetales:
+  :type:
+    - Fire
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Golem
+  :attacker:
+    - Victreebel
+    - Beedrill
+    - Butterfree
+Wigglytuff:
+  :type:
+    - Normal
+  :walls:
+    - Machamp
+    - Rhydon
+    - Primeape
+  :attacker:
+    - Dodrio
+    - Raticate
+    - Seadra
+Golbat:
+  :type:
+    - Poison
+    - Flying
+  :walls:
+    - Dewgong
+    - Lapras
+    - Golem
+  :attacker:
+    - Butterfree
+    - Beedrill
+    - Machamp
+Vileplume:
+  :type:
+    - Grass
+    - Poison
+  :walls:
+    - Ninetales
+    - Arcanine
+    - Charizard
+  :attacker:
+    - Blastoise
+    - Vaporeon
+    - Seadra
+Parasect:
+  :type:
+    - Bug
+    - Grass
+  :walls:
+    - Dodrio
+    - Fearow
+    - Pidgeot
+  :attacker:
+    - Sandslash
+    - Onix
+    - Marowak
+Venomoth:
+  :type:
+    - Bug
+    - Poison
+  :walls:
+    - Dodrio
+    - Fearow
+    - Pidgeot
+  :attacker:
+    - Sandslash
+    - Hypno
+    - Marowak
+Dugtrio:
+  :type:
+    - Ground
+  :walls:
+    - Dodrio
+    - Fearow
+    - Pidgeot
+  :attacker:
+    - Jolteon
+    - Onix
+    - Raichu
+Persian:
+  :type:
+    - Normal
+  :walls:
+    - Golem
+    - Rhydon
+    - Onix
+  :attacker:
+    - Clefable
+    - Wigglytuff
+    - Raticate
+Golduck:
+  :type:
+    - Water
+  :walls:
+    - Lapras
+    - Slowbro
+    - Jolteon
+  :attacker:
+    - Ninetales
+    - Arcanine
+    - Golem
+Primeape:
+  :type:
+    - Fighting
+  :walls:
+    - Dodrio
+    - Alakazam
+    - Pidgeot
+  :attacker:
+    - Persian
+    - Clefable
+    - Wigglytuff
+Arcanine:
+  :type:
+    - Fire
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Golem
+  :attacker:
+    - Victreebel
+    - Beedrill
+    - Butterfree
+Poliwrath:
+  :type:
+    - Water
+    - Fighting
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Snorlax
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Alakazam:
+  :type:
+    - Psychic
+  :walls:
+    - Butterfree
+    - Pinsir
+    - Scyther
+  :attacker:
+    - Weezing
+    - Tentacruel
+    - Muk
+Machamp:
+  :type:
+    - Fighting
+  :walls:
+    - Dodrio
+    - Alakazam
+    - Hypno
+  :attacker:
+    - Persian
+    - Clefable
+    - Wigglytuff
+Victreebel:
+  :type:
+    - Grass
+    - Poison
+  :walls:
+    - Dodrio
+    - Fearow
+    - Magmar
+  :attacker:
+    - Blastoise
+    - Golem
+    - Rhydon
+Tentacruel:
+  :type:
+    - Water
+    - Poison
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Jolteon
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Golem:
+  :type:
+    - Rock
+    - Ground
+  :walls:
+    - Blastoise
+    - Lapras
+    - Seadra
+  :attacker:
+    - Persian
+    - Muk
+    - Arbok
+Rapidash:
+  :type:
+    - Fire
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Golem
+  :attacker:
+    - Victreebel
+    - Beedrill
+    - Butterfree
+Slowbro:
+  :type:
+    - Water
+    - Psychic
+  :walls:
+    - Raichu
+    - Jolteon
+    - Snorlax
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Magneton:
+  :type:
+    - Electric
+    - Steel
+  :walls:
+    - Golem
+    - Rhydon
+    - Marowak
+  :attacker:
+    - Blastoise
+    - Tentacruel
+    - Vaporeon
+Dodrio:
+  :type:
+    - Normal
+    - Flying
+  :walls:
+    - Kabutops
+    - Omastar
+    - Golem
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Butterfree
+Dewgong:
+  :type:
+    - Water
+    - Ice
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Machamp
+  :attacker:
+    - Onix
+    - Ninetales
+    - Arcanine
+Muk:
+  :type:
+    - Poison
+  :walls:
+    - Golem
+    - Rhydon
+    - Alakazam
+  :attacker:
+    - Persian
+    - Primeape
+    - Machamp
+Cloyster:
+  :type:
+    - Water
+    - Ice
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Victreebel
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Gengar:
+  :type:
+    - Ghost
+    - Poison
+  :walls:
+    - Golem
+    - Rhydon
+    - Magmar
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Mr-Mime
+Onix:
+  :type:
+    - Rock
+    - Ground
+  :walls:
+    - Blastoise
+    - Lapras
+    - Seadra
+  :attacker:
+    - Persian
+    - Muk
+    - Arbok
+Hypno:
+  :type:
+    - Psychic
+  :walls:
+    - Butterfree
+    - Slowbro
+    - Starmie
+  :attacker:
+    - Alakazam
+    - Tentacruel
+    - Arbok
+Kingler:
+  :type:
+    - Water
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Snorlax
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Electrode:
+  :type:
+    - Electric
+  :walls:
+    - Golem
+    - Rhydon
+    - Marowak
+  :attacker:
+    - Dewgong
+    - Tentacruel
+    - Lapras
+Exeggutor:
+  :type:
+    - Grass
+    - Psychic
+  :walls:
+    - Butterfree
+    - Pidgeot
+    - Dodrio
+  :attacker:
+    - Alakazam
+    - Tentacruel
+    - Arbok
+Marowak:
+  :type:
+    - Ground
+  :walls:
+    - Arbok
+    - Rhydon
+    - Golem
+  :attacker:
+    - Persian
+    - Electrode
+    - Raichu
+Weezing:
+  :type:
+    - Poison
+  :walls:
+    - Arbok
+    - Rhydon
+    - Golem
+  :attacker:
+    - Persian
+    - Snorlax
+    - Venusaur
+Rhydon:
+  :type:
+    - Rock
+    - Ground
+  :walls:
+    - Blastoise
+    - Lapras
+    - Seadra
+  :attacker:
+    - Persian
+    - Muk
+    - Arbok
+Kangaskhan:
+  :type:
+    - Normal
+  :walls:
+    - Sandslash
+    - Rhydon
+    - Golem
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Butterfree
+Seadra:
+  :type:
+    - Water
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Snorlax
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Seaking:
+  :type:
+    - Water
+  :walls:
+    - Vileplume
+    - Tentacruel
+    - Snorlax
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Starmie:
+  :type:
+    - Water
+    - Psychic
+  :walls:
+    - Raichu
+    - Jolteon
+    - Electrode
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Mr-Mime:
+  :type:
+    - Psychic
+  :walls:
+    - Butterfree
+    - Slowbro
+    - Starmie
+  :attacker:
+    - Alakazam
+    - Tentacruel
+    - Arbok
+Scyther:
+  :type:
+    - Bug
+    - Flying
+  :walls:
+    - Dodrio
+    - Rhydon
+    - Golem
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Butterfree
+Jynx:
+  :type:
+    - Ice
+    - Psychic
+  :walls:
+    - Persian
+    - Slowbro
+    - Starmie
+  :attacker:
+    - Alakazam
+    - Golbat
+    - Weezing
+Electabuzz:
+  :type:
+    - Electric
+  :walls:
+    - Golem
+    - Rhydon
+    - Marowak
+  :attacker:
+    - Blastoise
+    - Tentacruel
+    - Vaporeon
+Magmar:
+  :type:
+    - Fire
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Golem
+  :attacker:
+    - Victreebel
+    - Beedrill
+    - Butterfree
+Pinsir:
+  :type:
+    - Bug
+  :walls:
+    - Dodrio
+    - Rhydon
+    - Golem
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Butterfree
+Tauros:
+  :type:
+    - Normal
+  :walls:
+    - Dodrio
+    - Rhydon
+    - Golem
+  :attacker:
+    - Alakazam
+    - Hypno
+    - Butterfree
+Gyarados:
+  :type:
+    - Water
+    - Flying
+  :walls:
+    - Raichu
+    - Jolteon
+    - Electrode
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Lapras:
+  :type:
+    - Water
+    - Ice
+  :walls:
+    - Raichu
+    - Primeape
+    - Electrode
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Vaporeon:
+  :type:
+    - Water
+  :walls:
+    - Raichu
+    - Jolteon
+    - Electrode
+  :attacker:
+    - Charizard
+    - Ninetales
+    - Arcanine
+Jolteon:
+  :type:
+    - Electric
+  :walls:
+    - Golem
+    - Rhydon
+    - Marowak
+  :attacker:
+    - Blastoise
+    - Tentacruel
+    - Vaporeon
+Flareon:
+  :type:
+    - Fire
+  :walls:
+    - Blastoise
+    - Tentacruel
+    - Golem
+  :attacker:
+    - Victreebel
+    - Beedrill
+    - Butterfree
+Omastar:
+  :type:
+    - Rock
+    - Water
+  :walls:
+    - Raichu
+    - Jolteon
+    - Electrode
+  :attacker:
+    - Dodrio
+    - Fearow
+    - Arcanine
+Kabutops:
+  :type:
+    - Rock
+    - Water
+  :walls:
+    - Raichu
+    - Jolteon
+    - Electrode
+  :attacker:
+    - Charizard
+    - Dodrio
+    - Arcanine
+Aerodactyl:
+  :type:
+    - Rock
+    - Flying
+  :walls:
+    - Raichu
+    - Jolteon
+    - Lapras
+  :attacker:
+    - Parasect
+    - Ninetales
+    - Beedrill
+Snorlax:
+  :type:
+    - Normal
+  :walls:
+    - Weezing
+    - Primeape
+    - Machamp
+  :attacker:
+    - Alakazam
+    - Persian
+    - Venusaur
