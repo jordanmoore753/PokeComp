@@ -76,3 +76,7 @@ elements.
 - Details has a 300 character limit and is provided by a textarea.
 - Display the tournaments in the same manner as articles, by index. Sort them by date. Load each of the files then with map and create through the title through the getter methods.
 - MAKE CHECK TO ENSURE THAT TOURNAMENT DOESNT EXIST ALREADY
+- Add tournaments and articles to a user's respective instance variables for display on profile.
+- A couple of methods would do this just fine.
+- We need to find the certain user (find_user method) and then pass in the new article or tournament object.
+- Then, we just invoke the method on the object that adds it to the correct instance variable.

@@ -29,21 +29,21 @@ class AppTest < Minitest::Test
 
     assert_includes last_response.body, "<form"
 
-    post "/login", params = { username: "admin", password: "secret" }
-    assert_equal session[:success], "admin logged in."
-    assert_equal session[:curr_user], "admin"
+    post "/login", params = { username: "ghost", password: "secret" }
+    assert_equal session[:success], "ghost logged in."
+    assert_equal session[:curr_user], "ghost"
     # check to make sure it is index
 
     post "/logout"
 
-    post "/login", params = { username: "admin", password: "secre" }
+    post "/login", params = { username: "ghost", password: "secre" }
     assert_nil session[:curr_user]
   end
 
   def test_logout
-    post "/login", params = { username: "admin", password: "secret" }
-    assert_equal session[:success], "admin logged in."
-    assert_equal session[:curr_user], "admin"
+    post "/login", params = { username: "ghost", password: "secret" }
+    assert_equal session[:success], "ghost logged in."
+    assert_equal session[:curr_user], "ghost"
 
     post "/logout"
     assert_equal session[:success], "User signed out."

@@ -1,0 +1,14 @@
+--- !ruby/object:User
+user: steven
+pw: "$2a$12$5Hvm7AlpaHDyXUMYV8jHCOaPTA59zLdTASa8C8ng2PNccsmSO02ge"
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+tourneys: []
+published: []

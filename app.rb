@@ -126,7 +126,7 @@ end
 def valid_username?(username)
   invalid_chars = %w(! @ # $ % ^ & * ( ) - _ + = / ] [ } { : ; ' " . , ? ` ~ < >) << ' '
   @users.each { |obj| return false if obj.user == username }
-  user.each_char { |chr| return false if invalid_chars.include?(chr) }
+  username.each_char { |chr| return false if invalid_chars.include?(chr) }
   true
 end
 
@@ -281,9 +281,54 @@ def tournament_file_name(title)
   title.gsub(' ', '_')
 end
 
+def update_user_tourneys(tourney_obj, username)
+  usr = find_user(username)
+  return false if usr == false
+
+  usr.add_tourney(tourney_obj)
+  File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }
+end
+
+def update_user_articles(article, username)
+  usr = find_user(username)
+  return false if usr == false
+
+  usr.add_article(article)
+  File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }
+end
+
+def update_user_team(team, username)
+  usr = find_user(username)
+  return false if usr == false
+
+  path = data_path + "/users/"
+  file_name = "#{usr.user}.yml"
+  file_path = File.join(path, file_name)
+
+  team = Team.new(team[0], team[1], team[2], team[3], team[4], team[5])
+  usr.add_team(team)
+  File.open(file_path, 'w') { |file| file.write(usr.to_yaml) }
+end
+
 def render_markdown(file)
   markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
   markdown.render(file)
+end
+
+def create_user_yml(obj)
+  path = data_path + "/users/"
+  file_name = "#{obj.user}.yml"
+  file_path = File.join(path, file_name)
+  File.open(file_path, 'w') { |file| file.write(obj.to_yaml) }
+end
+
+def create_user(username, pw)
+  User.new(username, BCrypt::Password.create(params[:password]).split('').join('')) 
+end
+
+def users_path
+  path = data_path + "/users/"
+  file_path = File.join(path, "#{session[:curr_user]}.yml") 
 end
 
 get "/" do 
@@ -368,7 +413,9 @@ get "/new/tournament" do
   erb :new_tournament
 end
 
-post "/new/tournament" do 
+post "/new/tournament" do
+  logged_in?
+
   if valid_tournament_title?(params[:title])
     #(generation, tier, style, date, title)
     tourney = Tournament.new(params[:gen], params[:tier], params[:style], params[:date], params[:title])
@@ -377,6 +424,7 @@ post "/new/tournament" do
     file_name = tournament_file_name(params[:title]) + ".yml"
     file_path = File.join(path, file_name) 
     File.open(file_path, 'w') { |file| file.write(tourney.to_yaml) }
+    update_user_tourneys(tourney, session[:curr_user])
     session[:success] = "Tournament created. Check the tournaments forum for your submission."
     redirect "/"
   else
@@ -391,6 +439,7 @@ end
 
 post "/new/article" do
   logged_in?  
+
   if title_no_invalid_chars?(params[:title]) && no_scripts?(params[:article])
     path = data_path + "/articles/"
     if params[:title][-1] == '_'
@@ -406,6 +455,7 @@ post "/new/article" do
     file_name = "#{title}#{user}_#{m}#{d}#{y}.md"
     file_path = File.join(path, file_name)
     File.open(file_path, 'w') { |file| file.write(params[:article]) }
+    update_user_articles(params[:title], session[:curr_user])
     session[:success] = "Article created. Check the articles for your submission."
     redirect "/"
   else
@@ -416,11 +466,12 @@ end
 
 post "/login" do 
   @user = find_user(params[:username])
+  @users = all_users
 
-  if @user && valid_credentials?(@user,
-                                 params[:username], 
-                                 @user.random, 
-                                 params[:password])
+  if @user != false && valid_credentials?(@user,
+                        params[:username], 
+                        @user.random, 
+                        params[:password])
 
     session[:success] = "#{params[:username]} logged in."
     session[:curr_user] = params[:username]
@@ -433,16 +484,22 @@ end
 
 post "/register" do
   @users = all_users
+  @pkmn_list = load_pkmn_list
 
   if valid_username?(params[:username]) &&
      valid_password?(params[:password], params[:confirm_pw])
 
-    path = data_path + "/users/"
-    obj = User.new(params[:username], BCrypt::Password.create(params[:password]).split('').join('')) 
-    file_name = scrambled_word + ".yml"
-    file_path = File.join(path, file_name) 
-    File.open(file_path, 'w') { |file| file.write(obj.to_yaml) }
-    session[:success] = "#{obj.username} created." 
+    obj = create_user(params[:username], params[:password])
+    team = [params[:first], 
+            params[:second], 
+            params[:third],
+            params[:fourth],
+            params[:fifth],
+            params[:sixth]]
+
+    create_user_yml(obj)
+    update_user_team(team, params[:username])
+    session[:success] = "#{obj.user} created." 
     redirect "/"
   else
     session[:error] = "Try another username or ensure your passwords match."

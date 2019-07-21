@@ -33,7 +33,7 @@ class Post
 end
 
 class User
-  attr_reader :user
+  attr_reader :user, :tourneys, :published, :teams
 
   def initialize(username, pw)
     @user = username
@@ -74,4 +74,12 @@ class User
   private
 
   attr_reader :pw
+end
+
+class Team
+  attr_reader :pkmn
+
+  def initialize(one, two, three, four, five, six)
+    @pkmn = [one, two, three, four, five, six]
+  end
 end
