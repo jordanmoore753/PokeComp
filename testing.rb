@@ -28,3 +28,6 @@ p a
  p a = "/users/*"
  a.gsub!('*', '') 
  p a
+
+ b = "iamgoingtotooooo.yml"
+ p b[0..-5]

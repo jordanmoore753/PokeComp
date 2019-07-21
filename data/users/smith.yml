@@ -1,0 +1,14 @@
+--- !ruby/object:User
+user: smith
+pw: "$2a$12$9NhW4ng8aE4j5W2o0smwqevxw61pOz0ZixA8AWM4p1QByH5hHMcQi"
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Blastoise
+  - Venusaur
+  - Charizard
+  - Nidoking
+  - Raichu
+  - Alakazam
+tourneys: []
+published: []

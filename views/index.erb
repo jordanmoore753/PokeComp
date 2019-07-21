@@ -11,11 +11,9 @@
   <div class="overviewcard"><%= display_pkmn_name_type(pkmn) %></div>
 <% end %>
 <div class="overviewcard"></div>
-<% @users.each do |usr| %>
-  <p><%= usr.user %></p>
-<% end %>
 </div>
 <p><%= find_user("steven").teams[0].pkmn %></p> <!--- how to access pokemon team data -->
+<p><%= @users %></p>
 </div>
 
 

@@ -15,7 +15,6 @@
       <p><strong>Style</strong>: <%= value.style %></p>
       <p><strong>Users</strong>: <%= value.users.size %></p>
       <p><strong>Date</strong>: <%= value.date %></p>
-      <p><%= @tournaments %></p>
       <% if session[:curr_user] && !value.users.include?(session[:curr_user]) %>
         <form action="/tournament/signup" method="post">
           <input type="submit" value="Sign Up">

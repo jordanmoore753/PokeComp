@@ -10,7 +10,7 @@
   <div class="card">
     <h3>Favorite Team</h3>
     <div class="team_grid">
-      <% @team.each do |pkmn| %>
+      <% @curr_user.teams[0].pkmn.each do |pkmn| %>
         <div class="pkmn_img">
           <img style="padding-left: 20px;" src="/img/<%= pkmn %>.png">
         </div>

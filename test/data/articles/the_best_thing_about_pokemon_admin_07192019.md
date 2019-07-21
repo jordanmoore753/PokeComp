@@ -1,3 +1,0 @@
-# Heading #
-
-**Let's go!**

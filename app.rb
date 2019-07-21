@@ -16,16 +16,34 @@ configure do
 end
 
 before do 
+  @articles = sorted_articles
+  @tournaments = sorted_tourneys
+  @users = sorted_users
+end
+
+def sorted_articles
   pattern = data_path + "/articles/*"
-  @articles = Dir.glob(pattern).map do |path|
+  articles = Dir.glob(pattern).map do |path|
     File.basename(path)
   end
-  @articles = sort_articles(@articles)
+  sort_articles(articles)
+end
+
+def sorted_tourneys 
   tournament_pattern = data_path + "/tournaments/*"
-  @tournaments = Dir.glob(tournament_pattern).map do |path|
+  tournaments = Dir.glob(tournament_pattern).map do |path|
     File.basename(path)
   end
-  @tournaments = sort_tournaments(@tournaments)
+  sort_tournaments(tournaments)
+end
+
+def sorted_users
+  pattern = data_path + "/users/*"
+  Dir.glob(pattern).map { |path| File.basename(path) }.sort
+end
+
+def user_with_ext
+  session[:curr_user] + '.yml'
 end
 
 def data_path
@@ -46,20 +64,11 @@ end
 
 def load_pkmn_list
   pkmn_path = if ENV["RACK_ENV"] == "test"
-    File.expand_path("../test/data/pokemon.yml", __FILE__)
+    File.expand_path("../pokemon.yml", __FILE__)
   else
-    File.expand_path("../data/pokemon.yml", __FILE__)
+    File.expand_path("../pokemon.yml", __FILE__)
   end
   YAML.load_file(pkmn_path)
-end
-
-def load_user_list
-  user_path = if ENV["RACK_ENV"] == "test"
-    File.expand_path("../test/data/users.yml", __FILE__)
-  else
-    File.expand_path("../data/users.yml", __FILE__)
-  end
-  YAML.load_file(user_path)
 end
 
 def load_yml_list(yml)
@@ -90,7 +99,7 @@ def load_yml_user(yml)
 end
 
 def load_specific_user(username)
-  @users.select { |user| user == username.to_sym }
+  @users.select { |user| user[0..-5] == username }
 end
 
 def display_pkmn_name_type(pokemon)
@@ -333,7 +342,6 @@ end
 
 get "/" do 
   @pkmn_list = load_pkmn_list
-  @users = all_users
   erb :index
 end
 
@@ -346,9 +354,10 @@ get "/register" do
   erb :register
 end
 
-get "/:user/profile" do
-  logged_in?  
-  @team = load_yml_list("teams").select { |key| key == params[:user].to_sym }.values.flatten
+get "/:idx/profile" do
+  logged_in?
+  @curr_user = find_user(session[:curr_user])
+  @idx = params[:idx].to_i  
   erb :profile
 end
 
@@ -425,7 +434,7 @@ post "/new/tournament" do
     file_path = File.join(path, file_name) 
     File.open(file_path, 'w') { |file| file.write(tourney.to_yaml) }
     update_user_tourneys(tourney, session[:curr_user])
-    session[:success] = "Tournament created. Check the tournaments forum for your submission."
+    session[:success] = "Tournament created."
     redirect "/"
   else
     session[:error] = "Invalid characters in title or title already exists."
@@ -456,7 +465,7 @@ post "/new/article" do
     file_path = File.join(path, file_name)
     File.open(file_path, 'w') { |file| file.write(params[:article]) }
     update_user_articles(params[:title], session[:curr_user])
-    session[:success] = "Article created. Check the articles for your submission."
+    session[:success] = "Article created."
     redirect "/"
   else
     session[:error] = "Title already exists or invalid inputs."
@@ -499,7 +508,7 @@ post "/register" do
 
     create_user_yml(obj)
     update_user_team(team, params[:username])
-    session[:success] = "#{obj.user} created." 
+    session[:success] = "User #{obj.user} created."
     redirect "/"
   else
     session[:error] = "Try another username or ensure your passwords match."

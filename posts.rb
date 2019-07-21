@@ -33,7 +33,7 @@ class Post
 end
 
 class User
-  attr_reader :user, :tourneys, :published, :teams
+  attr_reader :user, :tourneys, :published, :teams, :messages
 
   def initialize(username, pw)
     @user = username
@@ -41,6 +41,7 @@ class User
     @teams = []
     @tourneys = []
     @published = []
+    @messages = []
   end
 
   def add_tourney(t_name)
@@ -81,5 +82,11 @@ class Team
 
   def initialize(one, two, three, four, five, six)
     @pkmn = [one, two, three, four, five, six]
+  end
+
+  def each_pkmn(arr)
+    arr.each do |pkmn|
+      yield(pkmn)
+    end
   end
 end

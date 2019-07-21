@@ -20,12 +20,15 @@
       </header>
       <aside class="sidenav">
         <ul class="sidenav_list">
-          <li class="sidenav_list-item"><a href="/<%= session[:curr_user] %>/profile">Profile</a></li>
+          <% if session[:curr_user] %>
+          <li class="sidenav_list-item"><a href="/<%= @users.index(user_with_ext) %>/profile">Profile</a></li>
+          <% end %>
           <li class="sidenav_list-item"><a href="/check_analysis">Check Analysis</a></li>
           <li class="sidenav_list-item"><a href="/counter_analysis">Counter Analysis</a></li>
           <li class="sidenav_list-item"><a href="/articles">Articles</a></li>
           <li class="sidenav_list-item"><a href="/new/article">New Article</a></li>
           <li class="sidenav_list-item"><a href="/new/tournament">New Tournament</a></li>
+          <li class="sidenav_list-item"><a href="/tournaments">Tournaments</a></li>
         </ul>
       </aside>
       <main class="main">

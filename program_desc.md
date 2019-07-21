@@ -80,3 +80,11 @@ elements.
 - A couple of methods would do this just fine.
 - We need to find the certain user (find_user method) and then pass in the new article or tournament object.
 - Then, we just invoke the method on the object that adds it to the correct instance variable.
+8. Refactor all of the methods. The program is a complete mess right now. Look at register and login for an idea of what to do.
+9. Profile View
+- List of first three tournaments
+- Pokemon Team
+- List of articles written by user
+- Biography / description
+- Message send
+-- Change the param in :user to :idx and sort the users
