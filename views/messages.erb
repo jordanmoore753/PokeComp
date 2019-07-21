@@ -1,0 +1,19 @@
+<% content_for :session_header do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2><%= session.delete(:error)%></h2>
+  <% end %>
+<% end %>
+
+<div class="main-overview">
+<% @curr_user.messages.each do |message| %>
+  <div class="overviewcard">
+    <%= message.title %>
+    <br>
+    <br>
+    <%= message.msg %>  
+  </div>
+<% end %>
+<div class="overviewcard"></div>
+</div>

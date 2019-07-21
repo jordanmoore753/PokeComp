@@ -159,6 +159,12 @@ def find_user(username)
   false
 end
 
+def find_user_by_idx(idx)
+  users = all_users
+  users.each { |obj| return obj if obj.user == username }
+  false
+end
+
 def valid_password?(password, confirm_pw)
   password == confirm_pw
 end
@@ -272,6 +278,14 @@ def title_no_invalid_chars?(title)
   true
 end
 
+def valid_msg?(msg, title)
+  invalid_chars = %w(( ) - + = ] [ } { ~ < >)
+  msg.each_char { |chr| return false if invalid_chars.include?(chr) } 
+  title.each_char { |chr| return false if invalid_chars.include?(chr) }
+  return false if msg.empty? || title.empty?
+  true
+end
+
 def logged_in?
   if session[:curr_user].nil?
     session[:error] = "Must be logged in to perform that action."
@@ -304,6 +318,14 @@ def update_user_articles(article, username)
 
   usr.add_article(article)
   File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }
+end
+
+def update_user_msg(msg, username)
+  usr = find_user(username)
+  return false if usr == false
+
+  usr.add_message(msg)
+  File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }  
 end
 
 def update_user_team(team, username)
@@ -356,9 +378,43 @@ end
 
 get "/:idx/profile" do
   logged_in?
+  @idx = params[:idx].to_i  
+  @curr_user = find_user(session[:curr_user])
+  @profile_user = @users[@idx][0..-5]
+  if @curr_user.user != @profile_user
+    @profile_obj = find_user(@profile_user)
+  end #refactor this whole thing, it's confusing, I need to make the profile_user something else
+  erb :profile
+end
+
+get "/:idx/messages" do
+  logged_in?
   @curr_user = find_user(session[:curr_user])
   @idx = params[:idx].to_i  
   erb :profile
+end
+
+get "/:idx/send_message" do
+  logged_in?
+  @idx = params[:idx].to_i  
+  @profile_user = @users[@idx][0..-5]
+  @curr_user = find_user(session[:curr_user])
+  erb :send_message
+end
+
+post "/:idx/send_message" do 
+  logged_in?
+
+  if valid_msg?(params[:message], params[:title])
+    msg = Message.new(params[:message], params[:title])
+    @idx = params[:idx].to_i
+    @profile_user = @users[@idx][0..-5]
+    update_user_msg(msg, @profile_user)
+    session[:success] = "Message sent."
+    redirect "/"
+  else
+    session[:error] = "Message or title contained invalid characters."
+  end
 end
 
 get "/check_analysis" do

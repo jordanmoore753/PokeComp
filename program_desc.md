@@ -83,8 +83,7 @@ elements.
 8. Refactor all of the methods. The program is a complete mess right now. Look at register and login for an idea of what to do.
 9. Profile View
 - List of first three tournaments
-- Pokemon Team
+- Pokemon Team - refactor, but working now
 - List of articles written by user
 - Biography / description
 - Message send
--- Change the param in :user to :idx and sort the users

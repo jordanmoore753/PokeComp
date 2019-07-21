@@ -72,6 +72,14 @@ class User
     @teams.delete(team)
   end
 
+  def add_message(msg)
+    @messages << msg
+  end
+
+  def delete_message(msg)
+    @messages.delete(msg)
+  end
+
   private
 
   attr_reader :pw
@@ -88,5 +96,14 @@ class Team
     arr.each do |pkmn|
       yield(pkmn)
     end
+  end
+end
+
+class Message
+  attr_reader :msg, :title
+
+  def initialize(msg, title)
+    @msg = msg
+    @title = title
   end
 end

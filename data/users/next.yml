@@ -1,0 +1,18 @@
+--- !ruby/object:User
+user: also
+pw: "$2a$12$mgAxJSF4gze1St8GTmY0XuYzE/x/vJ/ikoAgmWCkeoKQT55pnoyS."
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Blastoise
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Machamp
+tourneys: []
+published: []
+messages:
+- !ruby/object:Message
+  msg: Explain why in this area. 200 characters max.
+  title: going

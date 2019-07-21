@@ -1,6 +1,6 @@
 --- !ruby/object:User
-user: steven
-pw: "$2a$12$5Hvm7AlpaHDyXUMYV8jHCOaPTA59zLdTASa8C8ng2PNccsmSO02ge"
+user: also
+pw: "$2a$12$mgAxJSF4gze1St8GTmY0XuYzE/x/vJ/ikoAgmWCkeoKQT55pnoyS."
 teams:
 - !ruby/object:Team
   pkmn:
@@ -12,3 +12,7 @@ teams:
   - Venusaur
 tourneys: []
 published: []
+messages:
+- !ruby/object:Message
+  msg: Anothero ne!
+  title: nono

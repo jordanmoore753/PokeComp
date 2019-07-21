@@ -1,0 +1,22 @@
+<% content_for :session_header do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2><%= session.delete(:error)%></h2>
+  <% end %>
+<% end %>
+
+<div class="send_message">
+  <div class="send_message_little">
+    <form action="/<%= @profile_user %>/send_message" method="post">
+      <input type="text" name="title" maxlength="25">
+      <br>
+      <br>
+      <textarea style="resize: none;" name="message" rows="5" cols="35" maxlength="200" required="required">Explain why in this area. 200 characters max.</textarea>
+      <br>
+      <br>
+      <input type="submit" value="Send Message">
+    </form>  
+  </div>
+</div>
+
