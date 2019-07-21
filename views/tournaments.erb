@@ -5,3 +5,26 @@
     <h2><%= session.delete(:error)%></h2>
   <% end %>
 <% end %>
+
+<div class="tournaments_div">
+  <% @tourneys.each do |key, value| %>
+    <div class="tournament-card">
+      <p><strong>Title</strong>: <%= value.title %></p>
+      <p><strong>Generation</strong>: <%= value.generation %></p>
+      <p><strong>Tier</strong>: <%= value.tier %></p>
+      <p><strong>Style</strong>: <%= value.style %></p>
+      <p><strong>Users</strong>: <%= value.users.size %></p>
+      <p><strong>Date</strong>: <%= value.date %></p>
+      <p><%= @tournaments %></p>
+      <% if session[:curr_user] && !value.users.include?(session[:curr_user]) %>
+        <form action="/tournament/signup" method="post">
+          <input type="submit" value="Sign Up">
+        </form>
+      <% elsif value.users.include?(session[:curr_user]) %>
+        <p>You are signed up for this tournament.</p>
+      <% else %>
+        <p>Sign in to sign up for this tournament.</p>
+      <% end %>
+    </div>
+  <% end %>
+</div>

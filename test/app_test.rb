@@ -71,4 +71,19 @@ class AppTest < Minitest::Test
     get last_response["Location"]
     assert_includes last_response.body, "Charizard"
   end
+
+  def test_articles_index
+    get "/articles"
+    assert_includes last_response.body, "One More Article"
+    assert_includes last_response.body, "Only Thing You Need"
+    assert_includes last_response.body, "The Best Thing About Pokemon"
+  end
+
+  def test_read_article
+    get "/4/read"
+    assert_equal session[:error], "Article doesn't exist."
+
+    get "/2/read"
+    assert_includes last_response.body, "The Best Thing About Pokemon"
+  end
 end

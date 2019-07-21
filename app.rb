@@ -7,11 +7,25 @@ require "rack"
 require "yaml"
 require "bcrypt"
 require "time"
+require "psych"
 require_relative "posts"
 
 configure do
   enable :sessions
   set :session_secret, 'secret' 
+end
+
+before do 
+  pattern = data_path + "/articles/*"
+  @articles = Dir.glob(pattern).map do |path|
+    File.basename(path)
+  end
+  @articles = sort_articles(@articles)
+  tournament_pattern = data_path + "/tournaments/*"
+  @tournaments = Dir.glob(tournament_pattern).map do |path|
+    File.basename(path)
+  end
+  @tournaments = sort_tournaments(@tournaments)
 end
 
 def data_path
@@ -57,6 +71,24 @@ def load_yml_list(yml)
   YAML.load_file(user_path)
 end
 
+def load_yml_tourney_list(yml)
+  user_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/data/tournaments/#{yml}.yml", __FILE__)
+  else
+    File.expand_path("../data/tournaments/#{yml}.yml", __FILE__)
+  end
+  YAML.load_file(user_path)
+end
+
+def load_yml_user(yml)
+  user_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/data/users/#{yml}.yml", __FILE__)
+  else
+    File.expand_path("../data/users/#{yml}.yml", __FILE__)
+  end
+  YAML.load_file(user_path)
+end
+
 def load_specific_user(username)
   @users.select { |user| user == username.to_sym }
 end
@@ -93,9 +125,29 @@ end
 
 def valid_username?(username)
   invalid_chars = %w(! @ # $ % ^ & * ( ) - _ + = / ] [ } { : ; ' " . , ? ` ~ < >) << ' '
-  return false if @users.key?(username.to_sym)
-  username.each_char { |chr| return false if invalid_chars.include?(chr) }
+  @users.each { |obj| return false if obj.user == username }
+  user.each_char { |chr| return false if invalid_chars.include?(chr) }
   true
+end
+
+def scrambled_word
+  BCrypt::Password.create("secret").split('').reject! { |chr| chr =~ /[^a-z0-9]/i }.join('')
+end
+
+def all_users
+  pattern = data_path + "/users/*"
+  users = Dir.glob(pattern).map do |path|
+    File.basename(path)
+  end
+
+  pattern.gsub!('*', '')
+  users.map { |file| YAML.load_file(pattern + file) }
+end
+
+def find_user(username)
+  users = all_users
+  users.each { |obj| return obj if obj.user == username }
+  false
 end
 
 def valid_password?(password, confirm_pw)
@@ -111,9 +163,9 @@ def load_user_credentials
   YAML.load_file(credentials_path)
 end
 
-def valid_credentials?(username, password, input)
-  if @users.key?(username)
-    bcrypt_password = BCrypt::Password.new(password)
+def valid_credentials?(obj, username, obj_two, input)
+  if obj.user == username
+    bcrypt_password = BCrypt::Password.new(obj_two)
     bcrypt_password == input
   else
     false
@@ -156,14 +208,87 @@ def no_scripts?(para)
   true
 end
 
-def data_path #refactor this for testing also
-  File.expand_path("../data", __FILE__)
+def article_title(file)
+  title = file.split('_')
+  title[0..title.size - 3].map(&:capitalize).join(' ')
+end
+
+def article_user(file)
+  file.split('_')[-2]
+end
+
+def article_date(file)
+  date = file.split('_')[-1]
+  date = date[0..date.length - 4]
+  date.insert(2, "/")
+  date.insert(5, "/")
+end
+
+def sort_articles(arr)
+  arr.sort_by do |file_name|
+    file_name[-7..-4].to_i
+  end.reverse
+end
+
+def sort_tournaments(arr)
+  arr.sort_by do |file_name|
+    file_name[-8..-5].to_i
+  end
+end
+
+def load_file_content(path)
+  content = File.read(path)
+  case File.extname(path)
+  when ".txt"
+    headers["Content-Type"] = "text/plain"
+    content
+  when ".md"
+    headers["Content-Type"] = "text/html"
+    render_markdown(content)
+  end
+end
+
+def md_file_exists?(file)
+  @articles.size >= file.to_i + 1
+end
+
+def file_doesnt_exist?(file)
+  @articles.include?(file)
+end
+
+def title_no_invalid_chars?(title)
+  invalid_chars = %w(! @ # $ % ^ & * ( ) - + = / ] [ } { : ; ' " . , ? ` ~ < >) << ' '
+  title.each_char { |chr| return false if invalid_chars.include?(chr) }
+  @articles.each { |file| return false if file.include?(title) }
+  true
+end
+
+def logged_in?
+  if session[:curr_user].nil?
+    session[:error] = "Must be logged in to perform that action."
+    redirect "/" 
+  end
+end
+
+def valid_tournament_title?(title)
+  invalid_chars = %w(! @ # $ % ^ & * ( ) - + = / ] [ } { : ; ' " . , ? ` ~ < >)
+  title.each_char { |chr| return false if invalid_chars.include?(chr) }
+  @tournaments.each { |file| return false if file.include?((title + '.yml').split(' ').join('_')) }
+  true
+end
+
+def tournament_file_name(title)
+  title.gsub(' ', '_')
+end
+
+def render_markdown(file)
+  markdown = Redcarpet::Markdown.new(Redcarpet::Render::HTML)
+  markdown.render(file)
 end
 
 get "/" do 
   @pkmn_list = load_pkmn_list
-  @users = load_user_list
-  @curr = load_specific_user("mike")
+  @users = all_users
   erb :index
 end
 
@@ -176,7 +301,8 @@ get "/register" do
   erb :register
 end
 
-get "/:user/profile" do 
+get "/:user/profile" do
+  logged_in?  
   @team = load_yml_list("teams").select { |key| key == params[:user].to_sym }.values.flatten
   erb :profile
 end
@@ -203,12 +329,99 @@ get "/:pkmn/results_counter" do
   erb :results_counter
 end
 
-post "/login" do 
-  @users = load_user_list
-  @curr = load_specific_user(params[:username])
-  user_sym = params[:username].to_sym
+get "/articles" do
+  erb :articles
+end
 
-  if valid_credentials?(user_sym, @curr[user_sym][:password], params[:password])
+get "/:idx/read" do 
+  if md_file_exists?(params[:idx])
+    file_name = @articles[params[:idx].to_i]
+    path = data_path + "/articles/"
+    file_path = File.join(path, file_name)
+    @article = load_file_content(file_path)
+    @title, @date = article_title(file_name), article_date(file_name)
+    @user = article_user(file_name)
+    erb :read_article
+  else
+    session[:error] = "Article doesn't exist."
+    redirect "/"
+  end
+end
+
+get "/new/article" do
+  logged_in? 
+  erb :new_article
+end
+
+get "/tournaments" do
+  @path = data_path + '/tournaments/'
+  @tourneys = {}
+
+  @tournaments.each_with_index do |file, idx|
+    @tourneys[idx] = YAML.load_file(@path + file)
+  end
+
+  erb :tournaments
+end
+
+get "/new/tournament" do 
+  erb :new_tournament
+end
+
+post "/new/tournament" do 
+  if valid_tournament_title?(params[:title])
+    #(generation, tier, style, date, title)
+    tourney = Tournament.new(params[:gen], params[:tier], params[:style], params[:date], params[:title])
+
+    path = data_path + "/tournaments/" 
+    file_name = tournament_file_name(params[:title]) + ".yml"
+    file_path = File.join(path, file_name) 
+    File.open(file_path, 'w') { |file| file.write(tourney.to_yaml) }
+    session[:success] = "Tournament created. Check the tournaments forum for your submission."
+    redirect "/"
+  else
+    session[:error] = "Invalid characters in title or title already exists."
+    erb :new_tournament
+  end
+end
+
+post "/tournament/signup" do 
+
+end
+
+post "/new/article" do
+  logged_in?  
+  if title_no_invalid_chars?(params[:title]) && no_scripts?(params[:article])
+    path = data_path + "/articles/"
+    if params[:title][-1] == '_'
+      title = params[:title]
+    else
+      title = params[:title] + '_'
+    end
+
+    time = Time.new
+    m, y = "%02d" % time.month, time.year
+    d = "%02d" % time.day
+    user = session[:curr_user] 
+    file_name = "#{title}#{user}_#{m}#{d}#{y}.md"
+    file_path = File.join(path, file_name)
+    File.open(file_path, 'w') { |file| file.write(params[:article]) }
+    session[:success] = "Article created. Check the articles for your submission."
+    redirect "/"
+  else
+    session[:error] = "Title already exists or invalid inputs."
+    erb :new_article
+  end
+end
+
+post "/login" do 
+  @user = find_user(params[:username])
+
+  if @user && valid_credentials?(@user,
+                                 params[:username], 
+                                 @user.random, 
+                                 params[:password])
+
     session[:success] = "#{params[:username]} logged in."
     session[:curr_user] = params[:username]
     redirect "/"
@@ -219,19 +432,18 @@ post "/login" do
 end
 
 post "/register" do
-  @pkmn_list = load_pkmn_list.map { |pkmn| pkmn[0] }  
-  @users = load_user_list
-  @curr = load_specific_user(params[:username])
-  user_sym = params[:username].to_sym
+  @users = all_users
 
   if valid_username?(params[:username]) &&
      valid_password?(params[:password], params[:confirm_pw])
 
-     session[:success] = "#{params[:username]} created." 
-     path, team_path = yaml_path("users"), yaml_path("teams")
-     write_to_users(path)
-     write_to_teams(team_path)
-     redirect "/"
+    path = data_path + "/users/"
+    obj = User.new(params[:username], BCrypt::Password.create(params[:password]).split('').join('')) 
+    file_name = scrambled_word + ".yml"
+    file_path = File.join(path, file_name) 
+    File.open(file_path, 'w') { |file| file.write(obj.to_yaml) }
+    session[:success] = "#{obj.username} created." 
+    redirect "/"
   else
     session[:error] = "Try another username or ensure your passwords match."
     erb :register
@@ -255,7 +467,6 @@ post "/counter_analysis" do
 end
 
 post "/submit_check" do 
-  #first_pkmn, second_pkmn, explain
   if no_scripts?(params[:explain])
     title = "#{params[:second_pkmn]} is checked by #{params[:first_pkmn]}."
     paragraphs = params[:explain].split("\n")
@@ -263,7 +474,7 @@ post "/submit_check" do
     user = session[:curr_user]
     new_post = Post.new(title, "#{time.month}/#{time.day}/#{time.year}",
                         paragraphs, user)
-    path = yaml_path("posts")
+    path = yaml_path("requests")
     write_to_posts(path, new_post)
     session[:success] = "Submission successfully created."
     redirect "/"
@@ -274,7 +485,6 @@ post "/submit_check" do
 end
 
 post "/submit_counter" do 
-  #first_pkmn, second_pkmn, explain
   if no_scripts?(params[:explain])
     title = "#{params[:second_pkmn]} is counter to #{params[:first_pkmn]}."
     paragraphs = params[:explain].split("\n")
@@ -282,7 +492,7 @@ post "/submit_counter" do
     user = session[:curr_user]
     new_post = Post.new(title, "#{time.month}/#{time.day}/#{time.year}",
                         paragraphs, user)
-    path = yaml_path("posts")
+    path = yaml_path("requests")
     write_to_posts(path, new_post)
     session[:success] = "Submission successfully created."
     redirect "/"
@@ -291,4 +501,3 @@ post "/submit_counter" do
     erb :counter_analysis
   end
 end
-

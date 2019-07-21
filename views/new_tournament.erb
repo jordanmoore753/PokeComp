@@ -1,0 +1,51 @@
+<% content_for :session_header do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2><%= session.delete(:error)%></h2>
+  <% end %>
+<% end %>
+
+<div class="new-tournament">
+  <div class="new-article-box">
+    <p>On this page you can create your own tournaments. Users can sign up for your tournament by clicking on your tournament and signing up.</p>
+    <p>Below, you will find several prompts for information regarding your tournament. These are: Title, Gen, Tier, and Style.</p>
+    <p><strong>Title</strong> is the name of your tournament and will be what is displayed in the tournament forum. Make this something good, as it is the first thing users see in regards to your tournament.</p>
+    <p><strong>Gen</strong> is the generation of Pokemon you are including in your tournament. "I" includes all the original 151, "II" includes all the Pokemon from Gold and Silver, and "III" includes all the Pokemon in the PokeDex from Pokemon Emerald.</p>
+    <p><strong>Tier</strong> is the competitive level you wish to play it. Pokemon are separated into tiers based on their viability in the competitive meta-game. For instance, Mewtwo is an Uber, due to it's collosal stats. On the other hand of the spectrum, we have Parasect, who has horrible typing and awful stats. Check out <a href="https://www.smogon.com/">Smogon</a> for further information.</p>
+    <p>Lastly, <strong>Style</strong> is the type of gameplay you would like to play with. "Singles" means that one Pokemon is out at a time. "Doubles" means that two are out at a time. "3v3" means that each trainer only has 3 Pokemon.</p>
+  </div>
+  <div class="new-article-box">
+    <form action="/new/tournament" method="post">
+      Title:<input type="text" name="title" maxlength="20" value="Tournament title">
+      <br>
+      <br>
+    Gen:
+    <select name="gen">
+      <option>I</option>
+      <option>II</option>
+      <option>III</option>
+    </select>
+    Tier:
+    <select name="tier">
+      <option>NU</option>
+      <option>UU</option>
+      <option>OU</option>
+      <option>Ubers</option>
+    </select>
+    Style:
+    <select name="style">
+      <option>Singles</option>
+      <option>Doubles</option>
+      <option>3v3</option>
+    </select>
+    <br>
+    <br>
+    Date:
+    <input type="date" name="date"  min="2019-07-21" required>
+    <br>
+    <br>
+    <input style="display: block; margin: 0 auto;" type="submit" value="Submit">
+    </form>
+  </div>  
+</div>

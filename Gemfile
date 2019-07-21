@@ -11,3 +11,4 @@ gem "rack-test"
 gem "redcarpet"
 gem "bcrypt"
 gem "sinatra-bootstrap", :require => 'sinatra/bootstrap'
+gem "psych"

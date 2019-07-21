@@ -6,6 +6,7 @@ GEM
     erubis (2.7.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    psych (3.1.0)
     rack (1.6.11)
     rack-protection (1.5.5)
       rack
@@ -37,6 +38,7 @@ DEPENDENCIES
   bcrypt
   erubis
   minitest
+  psych
   rack (>= 1.6.11)
   rack-protection (>= 1.5.5)
   rack-test

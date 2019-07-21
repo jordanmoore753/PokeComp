@@ -110,7 +110,7 @@
 .main-analysis {
   display: grid;
   grid-template-columns: 1fr;
-  grid-auto-rows: 1.5fr 1fr 50px;
+  grid-auto-rows: 1fr 1fr 50px;
   grid-gap: 20px;
   margin: 20px;
 }
@@ -221,6 +221,31 @@
   width: 35px;
 }
 
+.new-article-div {
+  display: grid;
+  grid-template-columns: 90%;
+  grid-auto-rows: 1fr;
+  margin: 20px;
+  justify-content: center;
+}
+
+.new-article-box {
+  font-family: Garamond;
+  font-size: 18px;
+  background-color: #d3d3;
+  border-radius: 25px;
+  border-color: #9999ff;
+  border-width: 5px;
+  border-style: solid;
+  padding: 10px;
+}
+
+.text-article {
+  resize: none;
+  border: 1px black solid;
+    border-radius: 10px;
+}
+
 .pkmn_img img {
   margin-left: -20px;
 }
@@ -233,8 +258,48 @@
   height: 265px;
 }
 
+.new-tournament {
+  display: grid;
+  grid-template-columns: 80%;
+  grid-auto-rows: 1fr 190px;
+  margin: 20px;
+  justify-content: center;
+  grid-gap: 10px;
+}
+
+.tournaments_div {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  grid-auto-rows: 400px;
+  grid-gap: 20px;
+  margin: 20px;
+} 
+
+.tournament-card {
+  display: flex;
+  flex-direction: column;
+  font-family: Garamond;
+  font-size: 18px;
+  background-color: #d3d3;
+  border-radius: 25px;
+  border-color: #9999ff;
+  border-width: 5px;
+  border-style: solid;
+  padding: 10px;
+}
+
 @media only screen and (min-width: 46.875em) {
     /* Show the sidenav */
+  .new-tournament {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  grid-auto-rows: 1fr;
+  grid-gap: 10px;
+  margin: 20px;
+  justify-content: center;
+  align-items: center;
+}
+
     .grid-container {
       grid-template-columns: 240px 1fr; /* Show the side nav for non-mobile screens */
       grid-template-rows: 50px 1fr 50px;
@@ -243,6 +308,15 @@
         "sidenav main"
         "sidenav footer";
     }
+
+    .new-article-div {
+      display: grid;
+      grid-template-columns: 85%;
+      grid-auto-rows: 1fr;
+      margin: 20px;
+      justify-content: center;
+    }
+
     .sidenav {
       display: flex;
       flex-direction: column;
@@ -267,9 +341,8 @@
     background-color: rgba(255, 255, 255, 0.2);
     cursor: pointer;
     }
-
-
   }
+
   /* Medium-sized screen breakpoint (tablet, 1050px) */
   @media only screen and (min-width: 65.625em) {
     /* Break out main cards into two columns */
@@ -307,5 +380,37 @@
 .pkmn_selection input {
   margin: 0 auto;
   margin-top: 20px;
+}
+
+.article_div {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: 50px;
+  grid-gap: 30px;
+  margin: 20px;
+}
+
+.article-link {
+  font-family: Garamond;
+  font-size: 18px;
+  background-color: #d3d3;
+  border-radius: 25px;
+  border-color: #9999ff;
+  border-width: 5px;
+  border-style: solid;
+  padding: 10px;
+}
+
+.article-link span:before {
+  content: " ";
+  display: inline-block;
+  width: 30px;
+}
+
+.read-article {
+  display: grid;
+  grid-template-columns: 70%;
+  margin: 20px;
+  justify-content: center;
 }
 

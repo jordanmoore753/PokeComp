@@ -64,3 +64,15 @@ elements.
   - file_name_admin_07192019 (admin = user, 07192019 = date, title = File Name)
   - if name already exists, error
   - if name contains inappropriate symbols, error
+7. Create tournament forum.
+- Similar format as articles.
+- The tournament now will be YAML file that stores a Tournament object.
+- I can edit this object through its instance methods.
+- The creation process won't need admin approval. I don't see it as necessary. People will sign up if they want to, no need to moderate it.
+- Must be logged in to create a tournament.
+- Tournaments are displayed by most immediate closest date.
+- Display data includes: tier, generation, style, date, and title. Users are visible once you click on the actual tournament link.
+- Tiers, generation, and style are dropdown. Title can't contain any invalid chars like scripts.
+- Details has a 300 character limit and is provided by a textarea.
+- Display the tournaments in the same manner as articles, by index. Sort them by date. Load each of the files then with map and create through the title through the getter methods.
+- MAKE CHECK TO ENSURE THAT TOURNAMENT DOESNT EXIST ALREADY

@@ -1,0 +1,8 @@
+<% content_for :session_header do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2><%= session.delete(:error)%></h2>
+  <% end %>
+<% end %>
+

@@ -1,13 +1,14 @@
 class Tournament
-  attr_reader :title, :requirements, :details, :date
+  attr_reader :generation, :tier, :date, :style, :title
   attr_accessor :users
-
-  def initialize(title, requirements, details, date)
-    @title = title
-    @requirements = requirements
-    @details = details
-    @users = []
+  
+  def initialize(generation, tier, style, date, title)
+    @generation = generation
+    @tier = tier
+    @style = style
     @date = date
+    @title = title
+    @users = []
   end
 
   def add_user(user)
@@ -20,24 +21,6 @@ class Tournament
   end
 end
 
-class Message
-  attr_reader :title, :details, :from_user, :to_user, :date
-  attr_accessor :replies
-
-  def initialize(title, details, from_user, to_user, date)
-    @title = title
-    @details = details
-    @from_user = from_user
-    @to_user = to_user
-    @date = date
-    @replies = []
-  end
-
-  def add_reply(reply)
-    @replies << reply
-  end
-end
-
 class Post
   attr_reader :title, :date, :paragraphs, :user
 
@@ -47,4 +30,48 @@ class Post
     @paragraphs = paragraphs
     @user = user
   end
+end
+
+class User
+  attr_reader :user
+
+  def initialize(username, pw)
+    @user = username
+    @pw = pw
+    @teams = []
+    @tourneys = []
+    @published = []
+  end
+
+  def add_tourney(t_name)
+    @tourneys << t_name
+  end
+
+  def remove_tourney(t_name)
+    @tourneys.delete(t_name)
+  end
+
+  def add_article(t_name)
+    @published << t_name
+  end
+
+  def remove_article(t_name)
+    @published.delete(t_name)
+  end
+
+  def random
+    pw
+  end
+
+  def add_team(team)
+    @teams << team
+  end
+
+  def remove_team(team)
+    @teams.delete(team)
+  end
+
+  private
+
+  attr_reader :pw
 end

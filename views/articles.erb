@@ -1,0 +1,17 @@
+<% content_for :session_header do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2><%= session.delete(:error)%></h2>
+  <% end %>
+<% end %>
+
+<div class="article_div">
+  <% @articles.each_with_index do |file, idx| %>
+    <div class="article-link">
+      <a href="/<%= idx %>/read"><%= article_title(file) %>: <%= article_user(file) %>: <%= article_date(file) %></a>
+    </div>
+  <% end %>
+</div>
+
+

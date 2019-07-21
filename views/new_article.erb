@@ -1,0 +1,20 @@
+<% content_for :session_header do %>
+  <% if session[:success] %>
+    <h2><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2><%= session.delete(:error)%></h2>
+  <% end %>
+<% end %>
+
+<div class="new-article-div">
+  <div class="new-article-box">
+    <form action="/new/article" method="post">
+      <input style="display: block; margin: 0 auto;" type="text" name="title" size="40%" value="your_title_goes_here_like_this_no_punctuation" maxlength="30">
+      <br>
+      <textarea class="text-article" name="article" style="height: 60vh; width: 100%;" required="required">Write your article in markdown here.</textarea>
+      <br>
+      <br>
+      <input style="display: block; margin: 0 auto;" type="submit" value="Submit">
+    </form>
+  </div>
+</div>
