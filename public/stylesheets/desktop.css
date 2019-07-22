@@ -50,7 +50,13 @@
 
 .main {
   grid-area: main;
-  background-color: #8fd4d9;
+  background-image: url("/img/darker_bkgr.png");
+  height: 100%;
+  background-size: cover;
+  background-position: center; /* Center the image */
+  background-repeat: no-repeat; /* Do not repeat the image */
+  background-size: cover;
+  z-index: 1;
 }
 
 .main-header {
@@ -85,7 +91,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #d3d3;
+  background-color: #d3d3d3;
+  opacity: .85;
   border-radius: 25px;
   border-color: #9999ff;
   border-width: 5px;
@@ -120,7 +127,8 @@
   font-size: 18px;
   background-color: #d3d3;
   border-radius: 25px;
-  border-color: #9999ff;
+  background-color: #d3d3d3;
+  opacity: .85;
   border-width: 5px;
   border-style: solid;
   padding: 10px;
