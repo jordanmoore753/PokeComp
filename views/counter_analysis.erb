@@ -14,12 +14,12 @@
       <p>Thanks to his ability <em>Levitate</em>, Gengar is also immune to Ground, in addition to Normal and Fighting moves. Furthermore, he soaks up Toxic Spikes and can switch into a Toxic user without being harmed.</p>
   </div>
 <div class="analysis-card">
-    <h3>Counter Submission</h3>
+    <h3 style="text-align: center;">Counter Submission</h3>
     <p>There is always room for improvement, especially when it comes to compiling a database of checks and counters. If you have a Pokemon you'd like to submit as a counter to another Pokemon, do so here.</p>
     <p>The first box is the Pokemon that will be countered against.</p>
     <p>The second box is the Pokemon you would like to add to the counters of the first Pokemon.</p>
     <form action="/submit_counter" method="post">
-      Pokemon: 
+      <strong>Pokemon</strong>: 
       <select name="first_pkmn">
 
         <% @pkmn_list.each do |pkmn| %>
@@ -27,16 +27,16 @@
         <% end %>
       </select>
       <br>
-      Counter:
+      <strong>Counter</strong>:
       <select style="margin-left: 9px;" name="second_pkmn">
         <% @pkmn_list.each do |pkmn| %>
           Counter: <option><%= pkmn %></option>
         <% end %>
       </select>
       <br>
-      <textarea style="resize: none;" name="explain" rows="5" cols="35" maxlength="200" required="required">Explain why in this area. 200 characters max.</textarea>
+      <textarea style="resize: none; color: black; font-weight: bold; border: 2px solid gray;" name="explain" rows="5" cols="60%" maxlength="200" required="required">Explain why in this area. 200 characters max.</textarea>
       <br>
-      <input type="submit" value="Submit">
+      <input style="border: 1px solid gray; display: block; margin: 0 auto; font-weight: bold; " type="submit" value="Submit">
     </form>
   </div>
   <div class="analysis-card">

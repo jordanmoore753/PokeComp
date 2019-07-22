@@ -12,7 +12,4 @@ teams:
   - Snorlax
 tourneys: []
 published: []
-messages:
-- !ruby/object:Message
-  msg: Message to you, another!
-  title: This is Title
+messages: []

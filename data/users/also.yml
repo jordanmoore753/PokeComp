@@ -16,3 +16,6 @@ messages:
 - !ruby/object:Message
   msg: Anothero ne!
   title: nono
+- !ruby/object:Message
+  msg: Explain why in this area. 200 characters max.
+  title: hey

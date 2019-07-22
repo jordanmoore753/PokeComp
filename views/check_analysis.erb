@@ -1,3 +1,9 @@
+<% content_for :current_action do %> 
+  <% if session[:error] %>
+    <p><%= session.delete(:error) %></p>
+  <% end %>
+<% end %>
+
 <div class="main-analysis">
   <div class="analysis-card">
     <h3 style="text-align: center;">What is a Check?</h3>
@@ -8,22 +14,22 @@
       <img style="display: block; float: left; height: 50px; width: 70px; margin-top: 10px;" src="/img/starmie.png">
         <div class="explanation">
           <ul style="list-style-type: none;">
-            <li>Ice Beam <img class="explanation-img" src="/img/ice.png"></li>
-            <li>Psychic <img class="explanation-img" src="/img/psychic.png"></li>
-            <li>Thunderbolt <img class="explanation-img" src="/img/electric.png"></li>
-            <li> Hydro Pump <img class="explanation-img" src="/img/water.png"></li>
+            <li><strong>Ice Beam</strong> <img class="explanation-img" src="/img/ice.png"></li>
+            <li><strong>Psychic</strong> <img class="explanation-img" src="/img/psychic.png"></li>
+            <li><strong>Thunderbolt</strong> <img class="explanation-img" src="/img/electric.png"></li>
+            <li><strong>Hydro Pump</strong> <img class="explanation-img" src="/img/water.png"></li>
           </ul>
         </div>
       </div>
       <p style="text-align: center;">Starmie has <strong>huge</strong> type coverage.</p>
   </div>
 <div class="analysis-card">
-    <h3>Check Submission</h3>
+    <h3 style="text-align: center;">Check Submission</h3>
     <p>There is always room for improvement, especially when it comes to compiling a database of checks and counters. If you have a Pokemon you'd like to submit as a check to another Pokemon, do so here.</p>
     <p>The first box is the Pokemon that will check the second.</p>
     <p>The second box is the Pokemon you would like to add to the checks of the first Pokemon.</p>
     <form action="/submit_check" method="post">
-      Pokemon: 
+      <strong>Pokemon</strong>: 
       <select name="first_pkmn">
 
         <% @pkmn_list.each do |pkmn| %>
@@ -31,16 +37,17 @@
         <% end %>
       </select>
       <br>
-      Check:
+      <strong>Check</strong>:
       <select style="margin-left: 22px;" name="second_pkmn">
         <% @pkmn_list.each do |pkmn| %>
           Counter: <option><%= pkmn %></option>
         <% end %>
       </select>
       <br>
-      <textarea style="resize: none;" name="explain" rows="5" cols="35" maxlength="200" required="required">Explain why in this area. 200 characters max.</textarea>
+      <textarea style="resize: none; color: black; font-weight: bolder; border: 2px solid gray;" name="explain" rows="5" cols="60%" maxlength="200" required="required">Explain why in this area. 200 characters max.</textarea>
       <br>
-      <input type="submit" value="Submit">
+      <br>
+      <input style="border: 1px solid gray; display: block; margin: 0 auto; font-weight: bold; " type="submit" value="Submit">
     </form>
   </div>
   <div class="analysis-card">

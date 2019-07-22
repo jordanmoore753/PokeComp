@@ -440,6 +440,7 @@ post "/send_message" do
     redirect "/"
   else
     session[:error] = "Message or title contained invalid characters."
+    redirect "/send_message"
   end
 end
 
@@ -631,6 +632,8 @@ post "/counter_analysis" do
 end
 
 post "/submit_check" do 
+  @pkmn_list = load_pkmn_list
+
   if no_scripts?(params[:explain])
     title = "#{params[:second_pkmn]} is checked by #{params[:first_pkmn]}."
     paragraphs = params[:explain].split("\n")
@@ -644,11 +647,13 @@ post "/submit_check" do
     redirect "/"
   else
     session[:error] = "No HTML allowed."
-    erb :check_analysis
+    redirect "/check_analysis"
   end
 end
 
-post "/submit_counter" do 
+post "/submit_counter" do
+  @pkmn_list = load_pkmn_list
+
   if no_scripts?(params[:explain])
     title = "#{params[:second_pkmn]} is counter to #{params[:first_pkmn]}."
     paragraphs = params[:explain].split("\n")
@@ -662,6 +667,6 @@ post "/submit_counter" do
     redirect "/"
   else
     session[:error] = "No HTML allowed."
-    erb :counter_analysis
+    redirect "/counter_analysis"
   end
 end
