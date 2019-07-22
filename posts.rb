@@ -107,8 +107,3 @@ class Message
     @title = title
   end
 end
-
-me = User.new('de', 'we')
-me.add_message(Message.new("oiii", "oiiii"))
-p me.delete_message(0)
-p me
