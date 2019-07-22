@@ -48,8 +48,26 @@ class AppTest < Minitest::Test
     }
   end
 
+  def register_another
+    post "/register", params = {
+      username: "another",
+      password: "secret",
+      confirm_pw: "secret",
+      first: "Venusaur",
+      second: "Venusaur",
+      third: "Venusaur",
+      fourth: "Venusaur",
+      fifth: "Venusaur",
+      sixth: "Venusaur"
+    }
+  end
+
   def login
     post "/login", params = { username: "ghost", password: "secret" }
+  end
+
+  def login_another
+    post "/login", params = { username: "another", password: "secret" }
   end
 
   def test_register
@@ -176,5 +194,48 @@ class AppTest < Minitest::Test
     get "/tournaments"
 
     assert_includes last_response.body, "Great War of Pokes"
+  end
+
+  def test_check_send_messages
+    register
+    register_another
+    login_another
+
+    post "/send_message", params = {
+      receiver: "ghost",
+      title: "Title Goes Here",
+      message: "I am writing a message to you. Here it is!"
+    }
+    assert_equal session[:success], "Message sent." 
+
+    post "/logout"  
+
+    login
+
+    get "/messages"
+    assert_includes last_response.body, "I am writing a message to you. Here it is!"
+  end
+
+  def test_delete_message
+    register
+    register_another
+    login_another
+
+    post "/send_message", params = {
+      receiver: "ghost",
+      title: "Title Goes Here",
+      message: "I am writing a message to you. Here it is!"
+    }
+    assert_equal session[:success], "Message sent." 
+
+    post "/logout"  
+
+    login
+
+    post "/0/delete_message"
+    assert_equal session[:success], "Message deleted."    
+
+    get "/messages"
+    assert_includes last_response.body, ""
   end
 end

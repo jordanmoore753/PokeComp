@@ -87,3 +87,4 @@ elements.
 - List of articles written by user
 - Biography / description
 - Message send
+CHECK AND MAKE SURE USERS CANT USE SAME NAME

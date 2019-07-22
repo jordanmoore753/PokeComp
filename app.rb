@@ -98,6 +98,19 @@ def load_yml_user(yml)
   YAML.load_file(user_path)
 end
 
+def load_yml_user_no_ext(yml)
+  user_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/data/users/#{yml}", __FILE__)
+  else
+    File.expand_path("../data/users/#{yml}", __FILE__)
+  end
+  YAML.load_file(user_path) 
+end
+
+def load_noncurrent_users(username)
+  all_users.select { |u| u.user != username }
+end
+
 def load_specific_user(username)
   @users.select { |user| user[0..-5] == username }
 end
@@ -324,8 +337,24 @@ def update_user_msg(msg, username)
   usr = find_user(username)
   return false if usr == false
 
+  path = data_path + "/users/"
+  file_name = "#{username}.yml"
+  file_path = File.join(path, file_name) 
+
   usr.add_message(msg)
-  File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }  
+  File.open(file_path, 'w') { |file| file.write(usr.to_yaml) }  
+end
+
+def delete_user_msg(id, username)
+  usr = find_user(username)
+  return false if usr == false
+
+  path = data_path + "/users/"
+  file_name = "#{username}.yml"
+  file_path = File.join(path, file_name) 
+
+  usr.delete_message(id)
+  File.open(file_path, 'w') { |file| file.write(usr.to_yaml) }  
 end
 
 def update_user_team(team, username)
@@ -362,7 +391,13 @@ def users_path
   file_path = File.join(path, "#{session[:curr_user]}.yml") 
 end
 
+def msg_idx_exists?(user, idx)
+  user.messages.each_with_index { |msg, i| return true if idx == i }
+  false
+end
+
 get "/" do 
+  @me = "Explain why in this area. 200 characters max.\r\n\r\nGoing now!"
   @pkmn_list = load_pkmn_list
   erb :index
 end
@@ -376,45 +411,52 @@ get "/register" do
   erb :register
 end
 
-get "/:idx/profile" do
+get "/profile" do
   logged_in?
-  @idx = params[:idx].to_i  
   @curr_user = find_user(session[:curr_user])
-  @profile_user = @users[@idx][0..-5]
-  if @curr_user.user != @profile_user
-    @profile_obj = find_user(@profile_user)
-  end #refactor this whole thing, it's confusing, I need to make the profile_user something else
   erb :profile
 end
 
-get "/:idx/messages" do
+get "/messages" do
   logged_in?
   @curr_user = find_user(session[:curr_user])
-  @idx = params[:idx].to_i  
-  erb :profile
+  erb :messages
 end
 
-get "/:idx/send_message" do
-  logged_in?
-  @idx = params[:idx].to_i  
-  @profile_user = @users[@idx][0..-5]
+get "/send_message" do
+  logged_in? 
+  @noncurrent_users = load_noncurrent_users(session[:curr_user])
   @curr_user = find_user(session[:curr_user])
   erb :send_message
 end
 
-post "/:idx/send_message" do 
+post "/send_message" do 
   logged_in?
 
   if valid_msg?(params[:message], params[:title])
     msg = Message.new(params[:message], params[:title])
-    @idx = params[:idx].to_i
-    @profile_user = @users[@idx][0..-5]
-    update_user_msg(msg, @profile_user)
+    update_user_msg(msg, params[:receiver])
     session[:success] = "Message sent."
     redirect "/"
   else
     session[:error] = "Message or title contained invalid characters."
   end
+end
+
+post "/:idx/delete_message" do 
+  logged_in? 
+  @curr_user = find_user(session[:curr_user])
+  idx = params[:idx].to_i
+
+  if msg_idx_exists?(@curr_user, idx)
+    delete_user_msg(idx, session[:curr_user])
+    session[:success] = "Message deleted."
+  else
+    session[:error] = "Could not locate message."
+  end
+
+  redirect "/profile"
+
 end
 
 get "/check_analysis" do

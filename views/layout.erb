@@ -21,7 +21,7 @@
       <aside class="sidenav">
         <ul class="sidenav_list">
           <% if session[:curr_user] %>
-          <li class="sidenav_list-item"><a href="/<%= @users.index(user_with_ext) %>/profile">Profile</a></li>
+          <li class="sidenav_list-item"><a href="/profile">Profile</a></li>
           <% end %>
           <li class="sidenav_list-item"><a href="/check_analysis">Check Analysis</a></li>
           <li class="sidenav_list-item"><a href="/counter_analysis">Counter Analysis</a></li>

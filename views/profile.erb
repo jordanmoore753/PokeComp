@@ -10,26 +10,15 @@
   <div class="card">
     <h3>Favorite Team</h3>
     <div class="team_grid">
-      <% if @curr_user == @profile_user %>
         <% @curr_user.teams[0].pkmn.each do |pkmn| %> 
           <div class="pkmn_img">
             <img style="padding-left: 20px;" src="/img/<%= pkmn %>.png">
           </div>
         <% end %>
-      <% else %>
-        <% @profile_obj.teams[0].pkmn.each do |pkmn| %> 
-          <div class="pkmn_img">
-            <img style="padding-left: 20px;" src="/img/<%= pkmn %>.png">
-          </div>
-        <% end %>
-      <% end %>
     </div>
   </div>
   <div class="card">
-    <% if session[:curr_user] != @profile_user %>
-      <a href="/<%= @idx %>/send_message">Send Message</a>
-    <% else %>
-      <a href="/<%= @idx %>/messages">Check Messages</a>
-    <% end %>
+      <a href="/send_message">Send Message</a>
+      <a href="/messages">Check Messages</a>
   </div>  
 </div>

@@ -72,12 +72,12 @@ class User
     @teams.delete(team)
   end
 
-  def add_message(msg)
-    @messages << msg
+  def add_message(mesg)
+    @messages << mesg
   end
 
-  def delete_message(msg)
-    @messages.delete(msg)
+  def delete_message(idx)
+    @messages.delete_at(idx)
   end
 
   private
@@ -107,3 +107,8 @@ class Message
     @title = title
   end
 end
+
+me = User.new('de', 'we')
+me.add_message(Message.new("oiii", "oiiii"))
+p me.delete_message(0)
+p me

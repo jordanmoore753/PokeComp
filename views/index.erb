@@ -13,7 +13,10 @@
 <div class="overviewcard"></div>
 </div>
 <!---<p>find_user(steven).teams[zero].pkmn </p> how to access pokemon team data -->
-<p><%= @users %></p>
+<% load_noncurrent_users("also").each do |u| %>
+<div class="overviewcard"><p><%= u.user %></p></div>
+<% end %>
+<p><%= @me %></p>
 </div>
 
 

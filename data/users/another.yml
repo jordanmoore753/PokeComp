@@ -1,0 +1,18 @@
+--- !ruby/object:User
+user: another
+pw: "$2a$12$zk9Ryz5ro0EDx/fsTA.qw.VEp6GYYLuItOX7bgPwqyIlDJqC8mp.i"
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Venusaur
+  - Raichu
+  - Poliwrath
+  - Dodrio
+  - Golem
+  - Snorlax
+tourneys: []
+published: []
+messages:
+- !ruby/object:Message
+  msg: Message to you, another!
+  title: This is Title

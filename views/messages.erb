@@ -7,13 +7,22 @@
 <% end %>
 
 <div class="main-overview">
-<% @curr_user.messages.each do |message| %>
+<% @curr_user.messages.each_with_index do |message, idx| %>
   <div class="overviewcard">
     <%= message.title %>
     <br>
     <br>
     <%= message.msg %>  
+    <br>
+    <br>
+    <form action="/send_message" method="post">
+      <input type="submit" value="Reply">
+    </form>
+    <form action="/<%= idx %>/delete_message" method="post">
+      <input type="submit" value="Delete">
+    </form>
   </div>
 <% end %>
+
 <div class="overviewcard"></div>
 </div>
