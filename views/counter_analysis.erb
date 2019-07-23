@@ -52,7 +52,7 @@
       <strong>Find Counters:</strong>
       <select name="pkmn">
         <% @pkmn_list.each do |pkmn| %>
-          <option><%= pkmn.downcase %></option>
+          <option><%= pkmn %></option>
         <% end %>
       </select>
       <input type="submit" value="Submit">

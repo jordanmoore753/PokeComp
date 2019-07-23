@@ -5,6 +5,6 @@
 
 <div class="main-overview">
   <% @check_poke[:attacker].each do |pkmn| %>
-    <div class="overviewcard"><%= display_pkmn_name_type(pkmn.downcase) %></div>
+    <div class="overviewcard"><%= display_pkmn_name_type(pkmn) %></div>
   <% end %>
 </div>
