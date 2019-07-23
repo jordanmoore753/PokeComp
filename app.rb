@@ -1,6 +1,6 @@
 require "redcarpet"
 require "sinatra"
-require "sinatra/reloader"
+require "sinatra/reloader" if development?
 require "sinatra/content_for"
 require "tilt/erubis"
 require "rack"
@@ -12,7 +12,7 @@ require_relative "posts"
 
 configure do
   enable :sessions
-  set :session_secret, 'secret' 
+  set :session_secret, 'secret'
 end
 
 before do 

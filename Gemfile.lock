@@ -6,7 +6,10 @@ GEM
     erubis (2.7.0)
     minitest (5.11.3)
     multi_json (1.13.1)
+    nio4r (2.4.0)
     psych (3.1.0)
+    puma (4.0.1)
+      nio4r (~> 2.0)
     rack (1.6.11)
     rack-protection (1.5.5)
       rack
@@ -39,6 +42,7 @@ DEPENDENCIES
   erubis
   minitest
   psych
+  puma
   rack (>= 1.6.11)
   rack-protection (>= 1.5.5)
   rack-test

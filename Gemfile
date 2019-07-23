@@ -12,3 +12,6 @@ gem "redcarpet"
 gem "bcrypt"
 gem "sinatra-bootstrap", :require => 'sinatra/bootstrap'
 gem "psych"
+group :production do
+  gem "puma"
+end
