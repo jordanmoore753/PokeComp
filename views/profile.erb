@@ -17,7 +17,7 @@
     <div class="team_grid">
         <% @curr_user.teams[0].pkmn.each do |pkmn| %> 
           <div class="pkmn_img">
-            <img style="padding-left: 20px;" src="/img/<%= pkmn %>.png">
+            <img style="padding-left: 20px;" src="/img/<%= pkmn.downcase %>.png">
           </div>
         <% end %>
     </div>
