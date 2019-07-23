@@ -6,7 +6,13 @@
   <% end %>
 <% end %>
 <div class="main-cards">
-  <div class="card">Card</div>
+  <div class="card">
+    <h1 style="text-align: center; font-weight: bold;"><%= session[:curr_user] %></h1>
+    <ul class="message_list">
+      <li><a href="/send_message">Send Message</a></li>
+      <li><a href="/messages">Check Messages</a> </li>
+  </ul>
+  </div>
   <div class="card">
     <h3>Favorite Team</h3>
     <div class="team_grid">
@@ -18,7 +24,18 @@
     </div>
   </div>
   <div class="card">
-      <a href="/send_message">Send Message</a>
-      <a href="/messages">Check Messages</a>
+    <h2 style="text-align: center; font-weight: bold;">Current Activity</h2>
+    <h3 style="text-align: left; font-weight: bold;">Tournament</h3>
+    <% if @curr_user.tourneys.empty? %>
+      <p>No tournaments currently.</p>
+    <% else %>
+      <p><%= @curr_user.tourneys[0] %></p>
+    <% end %>
+    <h3 style="text-align: left; font-weight: bold;">Article</h3>
+      <% if @curr_user.published.empty? %>
+        <p>No tournaments currently.</p>
+      <% else %>
+        <p style="font-style: italic;"><%= @curr_user.published[0] %></p>
+      <% end %>
   </div>  
 </div>

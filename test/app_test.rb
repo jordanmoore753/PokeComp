@@ -62,6 +62,16 @@ class AppTest < Minitest::Test
     }
   end
 
+  def create_tourney
+    post "/new/tournament", params = {
+      title: "Going Down",
+      gen: "I",
+      tier: "NU",
+      date: "2021-07-21",
+      style: "Singles"
+    }
+  end
+
   def login
     post "/login", params = { username: "ghost", password: "secret" }
   end
@@ -240,5 +250,24 @@ class AppTest < Minitest::Test
 
     get "/messages"
     assert_includes last_response.body, ""
+  end
+
+  def test_create_tourney
+    register
+    login
+    create_tourney 
+
+    get "/tournaments"
+
+    assert_includes last_response.body, "Going Down"
+  end
+
+  def test_signup_tourney
+    register
+    login
+    create_tourney
+
+    post "/0/signup"
+    assert_equal session[:success], "Signed up for tournament."
   end
 end

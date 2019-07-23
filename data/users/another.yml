@@ -12,4 +12,10 @@ teams:
   - Snorlax
 tourneys: []
 published: []
-messages: []
+messages:
+- !ruby/object:Message
+  msg: Explain why in this area. 200 characters max.
+  title: Going Down
+- !ruby/object:Message
+  msg: Explain why in this area. 200 characters max.
+  title: Hey Man, from also.

@@ -10,8 +10,12 @@ teams:
   - Venusaur
   - Venusaur
   - Machamp
-tourneys: []
-published: []
+tourneys:
+- Lets go man
+- Tournament title
+- Yeah Man
+published:
+- New_Article
 messages:
 - !ruby/object:Message
   msg: Explain why in this area. 200 characters max.

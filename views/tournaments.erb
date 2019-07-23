@@ -1,8 +1,8 @@
-<% content_for :session_header do %>
+<% content_for :current_action do %>
   <% if session[:success] %>
-    <h2><%= session.delete(:success)%></h2>
+    <h2 class="success"><%= session.delete(:success)%></h2>
   <% elsif session[:error] %>
-    <h2><%= session.delete(:error)%></h2>
+    <h2 class="error"><%= session.delete(:error)%></h2>
   <% end %>
 <% end %>
 
@@ -11,32 +11,27 @@
       <p>Pokemon is all about competition. Can you handle the heat of battle? Or will you crack under the pressure?</p>
       <p>Find out here by signing up for a tournament. Each tournament has their own unique attributes, pertaining to which Pokemon one can use and how many of them can be used at a time.</p>
       <p>If you have an idea for a tournament, please submit one here by clicking the button below.</p>
-    <form action="/new/article" method="get">
+    <form action="/new/tournament" method="get">
       <input style="display: block; margin: 0 auto; border: 1px solid black;" type="submit" value="Submit New Tournament">
-    </form>
-    <h4 style="text-align: center;">Sign Up For Tournament</h4>
-    <form action="/tournament/signup" method="post">
-      <select style="display: block; margin: 0 auto;" name="tourney_name">
-        <% @tourneys.each do |key, value| %>
-          <% if !value.users.include?(session[:curr_user]) %>
-            <option><%= value.title %></option>
-          <% end %>
-        <% end %>
-      </select>
-      <br>
-      <input style="display: block; margin: 0 auto;" type="submit" value="Sign Up">
     </form>
 </div>
 
 <div class="tournaments_div">
-  <% @tourneys.each do |key, value| %>
+  <% @tourneys.each_with_index do |key, idx| %>
     <div class="tournament-card">
-      <p><strong>Title</strong>: <%= value.title %></p>
-      <p><strong>Generation</strong>: <%= value.generation %></p>
-      <p><strong>Tier</strong>: <%= value.tier %></p>
-      <p><strong>Style</strong>: <%= value.style %></p>
-      <p><strong>Users</strong>: <%= value.users.size %></p>
-      <p><strong>Date</strong>: <%= value.date %></p>
-    </div>
+      <p><strong>Title</strong>: <%= key.title %></p>
+      <p><strong>Generation</strong>: <%= key.generation %></p>
+      <p><strong>Tier</strong>: <%= key.tier %></p>
+      <p><strong>Style</strong>: <%= key.style %></p>
+      <p><strong>Users</strong>: <%= key.users.size %></p>
+      <p><strong>Date</strong>: <%= key.date %></p>
+      <% if key.users.include?(session[:curr_user]) %>
+        <p style="text-align: center; font-weight: bold;">You are signed up.</p>
+      <% else %>
+        <form action="/<%= idx %>/signup" method="post">
+          <input style="display: block; margin: 0 auto;" type="submit" value="Sign Up">
+        </form>
+      <% end %>
+  </div>
   <% end %>
 </div>

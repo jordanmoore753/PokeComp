@@ -91,3 +91,22 @@ CHECK AND MAKE SURE USERS CANT USE SAME NAME
 
           <li class="sidenav_list-item"><a href="/new/article">New Article</a></li>
           <li class="sidenav_list-item"><a href="/new/tournament">New Tournament</a></li>
+
+          <div class="tournaments_div">
+  <% @tourneys.each do |key| %>
+    <div class="tournament-card">
+      <p><strong>Title</strong>: <%= key.title %></p>
+      <p><strong>Generation</strong>: <%= key.generation %></p>
+      <p><strong>Tier</strong>: <%= key.tier %></p>
+      <p><strong>Style</strong>: <%= key.style %></p>
+      <p><strong>Users</strong>: <%= key.users.size %></p>
+      <p><strong>Date</strong>: <%= key.date %></p>
+    </div>
+    <input style="display: block; margin: 0 auto;" type="submit" value="Sign Up">
+  <% end %>
+</div>
+
+9. Route the login to the profile.
+10. Register to the login page.
+11. Arrange the messages.
+12. Arrange the send message.

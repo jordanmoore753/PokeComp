@@ -4,4 +4,5 @@ tier: NU
 style: Singles
 date: '2345-04-23'
 title: Tournament title
-users: []
+users:
+- next

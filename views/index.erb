@@ -16,7 +16,7 @@
 <% load_noncurrent_users("also").each do |u| %>
 <div class="overviewcard"><p><%= u.user %></p></div>
 <% end %>
-<p><%= @me %></p>
+<p><%= load_yml_tourney_list(@tournaments[0]).title %></p>
 </div>
 
 

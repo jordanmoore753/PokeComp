@@ -81,10 +81,20 @@ def load_yml_list(yml)
 end
 
 def load_yml_tourney_list(yml)
+  file = tournament_file_name(yml)
   user_path = if ENV["RACK_ENV"] == "test"
-    File.expand_path("../test/data/tournaments/#{yml}.yml", __FILE__)
+    File.expand_path("../test/data/tournaments/#{yml}", __FILE__)
   else
-    File.expand_path("../data/tournaments/#{yml}.yml", __FILE__)
+    File.expand_path("../data/tournaments/#{yml}", __FILE__)
+  end
+  YAML.load_file(user_path)
+end
+
+def load_all_yml_tourney(yml)
+  user_path = if ENV["RACK_ENV"] == "test"
+    File.expand_path("../test/data/tournaments/#{yml}", __FILE__)
+  else
+    File.expand_path("../data/tournaments/#{yml}", __FILE__)
   end
   YAML.load_file(user_path)
 end
@@ -317,12 +327,23 @@ def tournament_file_name(title)
   title.gsub(' ', '_')
 end
 
-def update_user_tourneys(tourney_obj, username)
+def update_user_tourneys(idx, username)
   usr = find_user(username)
   return false if usr == false
 
-  usr.add_tourney(tourney_obj)
+  curr_tourney = load_yml_tourney_list(@tournaments[idx]).title
+  usr.add_tourney(curr_tourney)
   File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }
+end
+
+def update_tourney_users(idx, username)
+  curr_tourney = load_yml_tourney_list(@tournaments[idx])
+  curr_tourney.add_user(username)
+
+  path = data_path + "/tournaments/" 
+  file_name = tournament_file_name(curr_tourney.title.gsub(' ', '_') + ".yml")
+  file_path = File.join(path, file_name) 
+  File.open(file_path, 'w') { |file| file.write(curr_tourney.to_yaml) } 
 end
 
 def update_user_articles(article, username)
@@ -434,7 +455,8 @@ post "/send_message" do
   logged_in?
 
   if valid_msg?(params[:message], params[:title])
-    msg = Message.new(params[:message], params[:title])
+    title = params[:title] + ", from #{session[:curr_user]}."
+    msg = Message.new(params[:message], title)
     update_user_msg(msg, params[:receiver])
     session[:success] = "Message sent."
     redirect "/"
@@ -511,11 +533,7 @@ get "/tournaments" do
   logged_in?
 
   @path = data_path + '/tournaments/'
-  @tourneys = {}
-
-  @tournaments.each_with_index do |file, idx|
-    @tourneys[idx] = YAML.load_file(@path + file)
-  end
+  @tourneys = @tournaments.map { |file| load_yml_tourney_list(file) }
 
   erb :tournaments
 end
@@ -535,7 +553,6 @@ post "/new/tournament" do
     file_name = tournament_file_name(params[:title]) + ".yml"
     file_path = File.join(path, file_name) 
     File.open(file_path, 'w') { |file| file.write(tourney.to_yaml) }
-    update_user_tourneys(tourney, session[:curr_user])
     session[:success] = "Tournament created."
     redirect "/"
   else
@@ -544,19 +561,15 @@ post "/new/tournament" do
   end
 end
 
-post "/tournament/signup" do 
+post "/:idx/signup" do 
   logged_in?
 
-  update_user_tourneys(params[:tourney_name], params[:curr_user])
+  @idx = params[:idx].to_i
+  update_user_tourneys(@idx, session[:curr_user])
+  update_tourney_users(@idx, session[:curr_user])
+  session[:success] = "Signed up for tournament."
+  redirect "/tournaments"
 end
-
-# def update_user_tourneys(tourney_obj, username)
-#   usr = find_user(username)
-#   return false if usr == false
-
-#   usr.add_tourney(tourney_obj)
-#   File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }
-# end
 
 post "/new/article" do
   logged_in?  

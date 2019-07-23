@@ -31,3 +31,6 @@ p a
 
  b = "iamgoingtotooooo.yml"
  p b[0..-5]
+
+ a = "Magicarp time "
+ p a.gsub(" ", "_")

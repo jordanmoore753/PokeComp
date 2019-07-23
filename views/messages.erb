@@ -15,7 +15,7 @@
     <%= message.msg %>  
     <br>
     <br>
-    <form action="/send_message" method="post">
+    <form action="/send_message" method="get">
       <input type="submit" value="Reply">
     </form>
     <form action="/<%= idx %>/delete_message" method="post">
