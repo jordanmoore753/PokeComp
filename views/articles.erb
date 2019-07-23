@@ -1,4 +1,4 @@
-<% content_for :session_header do %>
+<% content_for :current_action do %>
   <% if session[:success] %>
     <h2><%= session.delete(:success)%></h2>
   <% elsif session[:error] %>

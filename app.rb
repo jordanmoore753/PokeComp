@@ -483,6 +483,7 @@ get "/:pkmn/results_counter" do
 end
 
 get "/articles" do
+  logged_in?
   erb :articles
 end
 
@@ -507,6 +508,8 @@ get "/new/article" do
 end
 
 get "/tournaments" do
+  logged_in?
+
   @path = data_path + '/tournaments/'
   @tourneys = {}
 
@@ -542,8 +545,18 @@ post "/new/tournament" do
 end
 
 post "/tournament/signup" do 
+  logged_in?
 
+  update_user_tourneys(params[:tourney_name], params[:curr_user])
 end
+
+# def update_user_tourneys(tourney_obj, username)
+#   usr = find_user(username)
+#   return false if usr == false
+
+#   usr.add_tourney(tourney_obj)
+#   File.open(users_path, 'w') { |file| file.write(usr.to_yaml) }
+# end
 
 post "/new/article" do
   logged_in?  

@@ -135,6 +135,9 @@ class AppTest < Minitest::Test
   end
 
   def test_articles_index
+    register
+    login
+
     create_document("One_More_Article.md", "/articles", "I love Pokemon!")
     create_document("Two_More_Article.md", "/articles", "I love Lamp!")
     create_document("Three_More_Article.md", "/articles", "# Heading! #")
