@@ -42,7 +42,7 @@
       <strong>Check</strong>:
       <select style="margin-left: 22px;" name="second_pkmn">
         <% @pkmn_list.each do |pkmn| %>
-          Counter: <option><%= pkmn %></option>
+          Counter: <option><%= pkmn.downcase %></option>
         <% end %>
       </select>
       <br>
@@ -57,7 +57,7 @@
       <strong>Find Checks:</strong>
       <select name="pkmn">
         <% @pkmn_list.each do |pkmn| %>
-          <option><%= pkmn %></option>
+          <option><%= pkmn.downcase %></option>
         <% end %>
       </select>
       <input type="submit" value="Submit">
