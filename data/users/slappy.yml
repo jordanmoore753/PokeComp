@@ -1,0 +1,20 @@
+--- !ruby/object:User
+user: slappy
+pw: "$2a$12$IlYUAmBLCKPdJg86B9OsOuznoOlF7I/XdJC/kTQ5cdg9kat9TFzXG"
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Charizard
+  - Golem
+  - Venusaur
+  - Fearow
+  - Raticate
+  - Persian
+tourneys:
+- Magicarp Only
+published:
+- First_Article
+messages:
+- !ruby/object:Message
+  msg: Hey slappy, saw your article. Very cool!
+  title: Hi, let's play, from Lance.

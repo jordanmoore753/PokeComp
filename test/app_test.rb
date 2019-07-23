@@ -123,6 +123,8 @@ class AppTest < Minitest::Test
   end
 
   def test_check
+    register
+    login
     get "/check_analysis"
     assert_includes last_response.body, "<form"
 
@@ -134,6 +136,8 @@ class AppTest < Minitest::Test
   end
 
   def test_counter
+    register
+    login
     get "/counter_analysis"
     assert_includes last_response.body, "<form"
 
@@ -160,6 +164,9 @@ class AppTest < Minitest::Test
   end
 
   def test_read_article
+    register
+    login
+    
     create_document("One_More_Article.md", "/articles", "I love Pokemon!")
     create_document("Two_More_Article.md", "/articles", "I love Lamp!")
     create_document("Three_More_Article.md", "/articles", "# Heading! #")

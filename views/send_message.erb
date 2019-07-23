@@ -1,13 +1,13 @@
-<% content_for :session_header do %>
+<% content_for :current_action do %>
   <% if session[:success] %>
-    <h2><%= session.delete(:success)%></h2>
+    <h2 class="success"><%= session.delete(:success)%></h2>
   <% elsif session[:error] %>
-    <h2><%= session.delete(:error)%></h2>
+    <h2 class="error"><%= session.delete(:error)%></h2>
   <% end %>
 <% end %>
 
-<div class="send_message">
-  <div class="send_message_little">
+<div class="article_exp_two">
+  <br>
     <form action="/send_message" method="post">
       User:
       <select name="receiver">
@@ -25,6 +25,6 @@
       <br>
       <input type="submit" value="Send Message">
     </form>  
-  </div>
+
 </div>
 

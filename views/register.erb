@@ -1,9 +1,11 @@
-<% if session[:error] %>
-  <p class="error"><%= session.delete(:error) %></p>
+<% content_for :current_action do %>
+  <% if session[:success] %>
+    <h2 class="success"><%= session.delete(:success)%></h2>
+  <% end %>
 <% end %>
 
 <div class="main-cards">
-  <div class="card">
+  <div class="card_one">
     <h2>Teambuilder</h2>
     <form action="/register" method="post" class="pkmn_selection">
       <h3>Pokemon 1</h3>
@@ -43,15 +45,15 @@
         <% end %>
       </select> 
   </div> 
-  <div class="card">
+  <div class="card_two">
     Username: <input type="text" name="username" required="required">
     <br>
     Password: <input type="password" name="password" required="required">
     <br>
     Confirm Password: <input type="password" name="confirm_pw" required="required">
   </div>  
-  <div class="card">
-    <input type="submit" value="Register">
+  <div class="card_three">
+    <input style="margin-top: -10px;"type="submit" value="Register">
   </form>
   </div>
 </div>

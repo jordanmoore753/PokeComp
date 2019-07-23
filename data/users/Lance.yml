@@ -1,0 +1,17 @@
+--- !ruby/object:User
+user: Lance
+pw: "$2a$12$wZPyAdMm7uVW33zRf/MBJeQgAU/ncThWguSmyFEp1clJQUoo7fVpC"
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Venusaur
+  - Raichu
+  - Poliwrath
+  - Dodrio
+  - Rapidash
+  - Rhydon
+tourneys:
+- UU Is Best
+published:
+- Lance_Rules
+messages: []

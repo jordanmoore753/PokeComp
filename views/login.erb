@@ -1,11 +1,19 @@
-<% if session[:error] %>
-  <p class="error"><%= session.delete(:error) %></p>
+<% content_for :current_action do %>
+  <% if session[:success] %>
+    <h2 class="success"><%= session.delete(:success)%></h2>
+  <% elsif session[:error] %>
+    <h2 class="error"><%= session.delete(:error)%></h2>
+  <% end %>
 <% end %>
-
-<form action="/login" method="post">
-  Username: <input type="text" name="username">
+<div class="article_exp_two">
   <br>
-  Password: <input type="password" name="password">
-  <br>
-  <input type="submit" value="Log In">
-</form>
+  <form action="/login" method="post">
+    Username: <input type="text" name="username">
+    <br>
+    <br>
+    Password: <input type="password" name="password">
+    <br>
+    <br>
+    <input type="submit" value="Log In">
+  </form>
+</div>

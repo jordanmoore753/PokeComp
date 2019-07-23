@@ -312,7 +312,7 @@ end
 def logged_in?
   if session[:curr_user].nil?
     session[:error] = "Must be logged in to perform that action."
-    redirect "/" 
+    redirect "/login" 
   end
 end
 
@@ -418,9 +418,9 @@ def msg_idx_exists?(user, idx)
 end
 
 get "/" do 
-  @me = "Explain why in this area. 200 characters max.\r\n\r\nGoing now!"
-  @pkmn_list = load_pkmn_list
-  erb :index
+  logged_in?
+
+  redirect "/profile"
 end
 
 get "/login" do 
@@ -459,7 +459,7 @@ post "/send_message" do
     msg = Message.new(params[:message], title)
     update_user_msg(msg, params[:receiver])
     session[:success] = "Message sent."
-    redirect "/"
+    redirect "/profile"
   else
     session[:error] = "Message or title contained invalid characters."
     redirect "/send_message"
@@ -479,26 +479,29 @@ post "/:idx/delete_message" do
   end
 
   redirect "/profile"
-
 end
 
 get "/check_analysis" do
+  logged_in?
   @pkmn_list = load_pkmn_list.map { |pkmn| pkmn[0] }  
   erb :check_analysis
 end
 
-get "/counter_analysis" do 
+get "/counter_analysis" do
+  logged_in? 
   @pkmn_list = load_pkmn_list.map { |pkmn| pkmn[0] }  
   erb :counter_analysis
 end
 
-get "/:pkmn/results_check" do 
+get "/:pkmn/results_check" do
+  logged_in? 
   @pkmn_list = load_pkmn_list
   @check_poke = @pkmn_list[session.delete(:curr_poke_check)]
   erb :results_check
 end
 
-get "/:pkmn/results_counter" do 
+get "/:pkmn/results_counter" do
+  logged_in?  
   @pkmn_list = load_pkmn_list
   @check_poke = @pkmn_list[session.delete(:curr_poke_check)]
   erb :results_counter
@@ -509,7 +512,9 @@ get "/articles" do
   erb :articles
 end
 
-get "/:idx/read" do 
+get "/:idx/read" do
+  logged_in? 
+
   if md_file_exists?(params[:idx])
     file_name = @articles[params[:idx].to_i]
     path = data_path + "/articles/"
@@ -538,7 +543,8 @@ get "/tournaments" do
   erb :tournaments
 end
 
-get "/new/tournament" do 
+get "/new/tournament" do
+  logged_in?  
   erb :new_tournament
 end
 
@@ -554,7 +560,7 @@ post "/new/tournament" do
     file_path = File.join(path, file_name) 
     File.open(file_path, 'w') { |file| file.write(tourney.to_yaml) }
     session[:success] = "Tournament created."
-    redirect "/"
+    redirect "/tournaments"
   else
     session[:error] = "Invalid characters in title or title already exists."
     erb :new_tournament
@@ -591,7 +597,7 @@ post "/new/article" do
     File.open(file_path, 'w') { |file| file.write(params[:article]) }
     update_user_articles(params[:title], session[:curr_user])
     session[:success] = "Article created."
-    redirect "/"
+    redirect "/articles"
   else
     session[:error] = "Title already exists or invalid inputs."
     erb :new_article
@@ -609,7 +615,7 @@ post "/login" do
 
     session[:success] = "#{params[:username]} logged in."
     session[:curr_user] = params[:username]
-    redirect "/"
+    redirect "/profile"
   else
     session[:error] = "Invalid credentials."
     erb :login
@@ -634,7 +640,7 @@ post "/register" do
     create_user_yml(obj)
     update_user_team(team, params[:username])
     session[:success] = "User #{obj.user} created."
-    redirect "/"
+    redirect "/login"
   else
     session[:error] = "Try another username or ensure your passwords match."
     erb :register
@@ -647,17 +653,20 @@ post "/logout" do
   redirect "/"
 end
 
-post "/check_analysis" do 
+post "/check_analysis" do
+  logged_in?  
   session[:curr_poke_check] = params[:pkmn]
   redirect "/#{params[:pkmn]}/results_check"
 end
 
-post "/counter_analysis" do 
+post "/counter_analysis" do
+  logged_in?  
   session[:curr_poke_check] = params[:pkmn]
   redirect "/#{params[:pkmn]}/results_counter"
 end
 
-post "/submit_check" do 
+post "/submit_check" do
+  logged_in?  
   @pkmn_list = load_pkmn_list
 
   if no_scripts?(params[:explain])
@@ -678,6 +687,7 @@ post "/submit_check" do
 end
 
 post "/submit_counter" do
+  logged_in? 
   @pkmn_list = load_pkmn_list
 
   if no_scripts?(params[:explain])

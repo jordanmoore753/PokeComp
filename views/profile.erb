@@ -1,11 +1,10 @@
-<% content_for :session_header do %>
+<% content_for :current_action do %>
   <% if session[:success] %>
-    <h2><%= session.delete(:success)%></h2>
-  <% elsif session[:error] %>
-    <h2><%= session.delete(:error)%></h2>
+    <h2 class="success"><%= session.delete(:success)%></h2>
   <% end %>
 <% end %>
-<div class="main-cards">
+
+<div style="font-family: Garamond;" class="main-cards">
   <div class="card">
     <h1 style="text-align: center; font-weight: bold;"><%= session[:curr_user] %></h1>
     <ul class="message_list">
@@ -14,7 +13,7 @@
   </ul>
   </div>
   <div class="card">
-    <h3>Favorite Team</h3>
+    <h2>Favorite Team</h3>
     <div class="team_grid">
         <% @curr_user.teams[0].pkmn.each do |pkmn| %> 
           <div class="pkmn_img">

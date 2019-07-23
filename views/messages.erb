@@ -1,28 +1,32 @@
-<% content_for :session_header do %>
+<% content_for :current_action do %>
   <% if session[:success] %>
-    <h2><%= session.delete(:success)%></h2>
-  <% elsif session[:error] %>
-    <h2><%= session.delete(:error)%></h2>
+    <h2 class="success"><%= session.delete(:success)%></h2>
   <% end %>
 <% end %>
 
-<div class="main-overview">
-<% @curr_user.messages.each_with_index do |message, idx| %>
-  <div class="overviewcard">
-    <%= message.title %>
-    <br>
-    <br>
-    <%= message.msg %>  
-    <br>
-    <br>
-    <form action="/send_message" method="get">
-      <input type="submit" value="Reply">
-    </form>
-    <form action="/<%= idx %>/delete_message" method="post">
-      <input type="submit" value="Delete">
-    </form>
+<div class="messages_all">
+<% if @curr_user.messages.empty? %>
+  <div class="new-message-box"> 
+    <p>No messages.</p>
   </div>
+<% else %>
+  <% @curr_user.messages.each_with_index do |message, idx| %>
+    <div class="new-message-box">
+      <strong>Title</strong>: <%= message.title %>
+      <br>
+      <br>
+      <strong>Message</strong>:
+      <br>
+      <br>
+      <%= message.msg %>  
+      <br>
+      <br>
+      <form style="display: inline-block;" action="/send_message" method="get">
+        <input type="submit" value="Reply">
+      </form>
+      <form style="display: inline-block;" action="/<%= idx %>/delete_message" method="post">
+        <input type="submit" value="Delete">
+      </form>
+    </div>
+  <% end %>
 <% end %>
-
-<div class="overviewcard"></div>
-</div>
