@@ -88,3 +88,6 @@ elements.
 - Biography / description
 - Message send
 CHECK AND MAKE SURE USERS CANT USE SAME NAME
+
+          <li class="sidenav_list-item"><a href="/new/article">New Article</a></li>
+          <li class="sidenav_list-item"><a href="/new/tournament">New Tournament</a></li>

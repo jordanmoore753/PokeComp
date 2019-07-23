@@ -6,10 +6,19 @@
   <% end %>
 <% end %>
 
+<div class="article_exp">
+    <h2 style="text-align: center;">Articles</h3>
+    <p>In this section, you may peruse the various articles written and uploaded by our users. You may learn something new, make a new friendship, or realize you know far more about Pokemon than other people.</p>
+    <p>If you have an idea for a topic that hasn't been covered, please click the submit new article button below.</p>
+    <p>The link will take you to a form for writing and uploading a new article. The article is written in <strong>Markdown</strong> format so review the syntax for writing those types of documents.</p> 
+    <form action="/new/article" method="get">
+      <input style="display: block; margin: 0 auto; border: 1px solid black;" type="submit" value="Write New Article">
+    </form>
+</div>
 <div class="article_div">
   <% @articles.each_with_index do |file, idx| %>
-    <div class="article-link">
-      <a href="/<%= idx %>/read"><%= article_title(file) %>: <%= article_user(file) %>: <%= article_date(file) %></a>
+    <div style="text-align: center;" class="article-link">
+      <a class="art_link" href="/<%= idx %>/read"><%= article_title(file) %></a>
     </div>
   <% end %>
 </div>
