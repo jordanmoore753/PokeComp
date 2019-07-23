@@ -132,7 +132,7 @@ def display_pkmn_name_type(pokemon)
   pkmn_type = pkmn_type.map { |type| "<img src='/img/#{type}.png'>"}
   pkmn_picture = File.join(data_path, pkmn_name + ".png")
 
-  "#{pkmn_name} <img src='/img/#{pkmn_name}.png'>  #{pkmn_type.join(' ')}"
+  "#{pkmn_name} <img src='/img/#{pkmn_name.downcase}.png'>  #{pkmn_type.join(' ')}"
 end
 
 def display_pkmn_counters(pokemon)
