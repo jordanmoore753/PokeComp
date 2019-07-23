@@ -129,7 +129,7 @@ def display_pkmn_name_type(pokemon)
   curr_pkmn = find_pkmn_by_name(pokemon)
   pkmn_name = curr_pkmn[0]
   pkmn_type = curr_pkmn[1][:type]
-  pkmn_type = pkmn_type.map { |type| "<img src='/img/#{type}.png'>"}
+  pkmn_type = pkmn_type.map { |type| "<img src='/img/#{type.downcase}.png'>"}
   pkmn_picture = File.join(data_path, pkmn_name + ".png")
 
   "#{pkmn_name} <img src='/img/#{pkmn_name.downcase}.png'>  #{pkmn_type.join(' ')}"
