@@ -1,0 +1,15 @@
+--- !ruby/object:User
+user: greg
+pw: "$2a$12$qGbCVVtevI6aamb/emn10.k3QWtfnpT2xJwSbET4mLp3boptGYLpW"
+teams:
+- !ruby/object:Team
+  pkmn:
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+  - Venusaur
+tourneys: []
+published: []
+messages: []
